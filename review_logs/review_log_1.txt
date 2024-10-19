@@ -1,0 +1,33 @@
+Paper Review Log:  Session 2 (2024/10/19)
+
+Name and (crsid): Sidharrth Nagappan 
+
+Paper Title and Authors: Ray: A Distributed Framework for Emerging AI Applications
+Philipp Moritz∗, Robert Nishihara,∗ Stephanie Wang, Alexey Tumanov, Richard Liaw, Eric Liang, William Paul, Michael I. Jordan, Ion Stoica
+-----------------------
+
+1. Paper Summary (<100 words) 
+Describe a brief summary (extract essentials).
+
+There is a need for distributed algorithms that are task-parallel, and support both heterogenous and dynamic computation graphs, supporting high-frequency, low-latency operations. Ray separates local and global scheduling to balance load across schedulers, via a new bottom-up distributed scheduler and uses a global control state to manage metadata.Ray also tracks task lineage and enables fault tolerance by reconstructing failed tasks. It exposes a simple Python API that abstracts away the internal computation graph. Experimental results mainly focus on reinforcement learning algorithms like PPO and show that Ray is twice as fast as the next-best computation graph, is easier to code, and can scale beyond 1.8 million tasks per second. 
+
+----------------------------------------------
+
+2. Punch-line of the Paper (<200 words):
+What is the significant contribution?
+What is the difference from the existing work?
+----------------------------------------------
+
+Spark/Tensorflow/Naiad only support static computation graphs. Spark also was not designed for low-latency tasks (primary use was always batch processing). Dask only supports centralized scheduling. CIEL lacks actor abstraction. Orleans, while actor-based, requires explicit checkpointing. OpenMPI, while being performant, is low-level and is difficult to code, requiring explicit coordination to recover from faults, and handle heterogenous and dynamic computation graphs. 
+
+Ray combines the strengths, and addresses the weaknesses of the above systems and offers a computation framework that (i) supports distributed (local and global) scheduling, (ii) supports heterogenous + dynamic computation graphs where different nodes have varying resource requirements, (iii) offers fault tolerance via graph reconstruction, (iv) adds actor abstraction that allows Ray to handle both stateless and stateful tasks and perhaps most notably, (v) exposes a high-level API that supports rapid AI development and widespread use by data scientists. 
+
+* Ray was used by my previous company (MoneyLion) for their distributed training and serving platform. 
+
+3. Any major criticism to the authors (<150 words) ?
+Any criticism and suggestions to the authors?
+---------------------------------------------
+
+Comparisons are only made to OpenMPI in the results section. Since the paper critiques other frameworks like Dask, a more extensive comparison would have been beneficial. A variety of factors including fault tolerance, time to reach peak performance in algorithms like PPO, resource usage, etc. could have been compared, and code samples could have been provided. This would have strengthened the case that Ray is not only performant, but is more customisable and easier to code. 
+
+Global Control Store sharding is also manual at the time of publication, and bottlenecking is a very legitimate concern. Authors could have gone into greater detail about what factors the future adaptive sharding algorithm they plan to implement will consider. 
