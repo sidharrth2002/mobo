@@ -9,7 +9,7 @@ Philipp Moritz∗, Robert Nishihara,∗ Stephanie Wang, Alexey Tumanov, Richard 
 1. Paper Summary (<100 words) 
 Describe a brief summary (extract essentials).
 
-There is a need for distributed algorithms that are task-parallel, and support both heterogenous and dynamic computation graphs, supporting high-frequency, low-latency operations. Ray separates local and global scheduling to balance load across schedulers, via a new bottom-up distributed scheduler and uses a global control state to manage metadata.Ray also tracks task lineage and enables fault tolerance by reconstructing failed tasks. It exposes a simple Python API that abstracts away the internal computation graph. Experimental results mainly focus on reinforcement learning algorithms like PPO and show that Ray is twice as fast as the next-best computation graph, is easier to code, and can scale beyond 1.8 million tasks per second. 
+There is a need for distributed algorithms that are task-parallel, and support both heterogenous and dynamic computation graphs, supporting high-frequency, low-latency operations. Ray separates local and global scheduling to balance load across schedulers, via a new bottom-up distributed scheduler and uses a global control state to manage metadata. Ray also tracks task lineage and enables fault tolerance by reconstructing failed tasks. It exposes a simple Python API that abstracts away the internal computation graph. Experimental results mainly focus on reinforcement learning algorithms like PPO. Ray is 2x faster than the next-best option, easier to code, and scales > 1.8m tasks/s.
 
 ----------------------------------------------
 
