@@ -1,0 +1,34 @@
+Paper Review Log:  Session 3 (2024/10/30)
+
+Name and (crsid): Sidharrth Nagappan
+
+Paper Title and Authors: Semi-Supervised Classification With Graph Convolutional Neural Networks -- Thomas N. Kipf, Max Welling, 2017
+
+-----------------------
+
+1. Paper Summary (<100 words) 
+Describe a brief summary (extract essentials).
+
+This is an incredibly well cited (>30k citations) paper that introduces and formulates the maths behind graph convolutions, based on spectral graph theory. GCNs use layer-wise propagation to learn both node features and structural information in graphs. The authors prove why their propagation function is more computationally efficient than their predecessors, and run semi-supervised classification experiments on citation networks and knowledge graphs, showing that GCNs outperform the SOTA as of 2017. The paper also laid the foundation for Graph Attention Networks that came the year later. 
+
+----------------------------------------------
+2. Punch-line of the Paper (<200 words):
+What is the significant contribution?
+What is the difference from the existing work?
+----------------------------------------------
+
+Main contribution is the mathematical propagation model that uses a first-order approximation of the Chebyshev polynomials, thereby reducing the computational complexity from quadratic to linear. The paper then made GCNs the new default, outperforming prior spectral graph convolutions. 
+
+Essentially, in 2013, Spectral Graph Convolutions required Graph Fourier Transform and ran at a complexity of O(N^3). In 2016, Defferrard et al. reduced it to O(K|E|) by using Chebyshev polynomials - where K is order of Chebyshev and E is number of edges. This paper reduces it to O(|E|) by setting K=1 and approximating the polynomial in the first order. The GCN therefore scales in situations where computing high-order Chebyshev polynomials will be slow and expensive. Furthermore, unlike past work that required separate parameters for each order of polynomial expansion, this paper reduces it to a single weight matrix per layer, decreasing complexity further. The paper also improves training stability (vanishing/exploding gradients) with symmetrically normalising the adjaceny matrix using self-loops and the degrees of each node's neighbours. The paper also empirically proves that simplifying the model does not compromise performance.
+
+The paper is quite theory-heavy and the proofs took a while to properly understand. 
+
+3. Any major criticism to the authors (<150 words) ?
+Any criticism and suggestions to the authors?
+---------------------------------------------
+
+This may be a personal opinion, but the authors could have presented the evolution of the propagation model in terms of computational complexity in a clearer manner. I had to read the paper multiple times and read several online articles to understand the complexity order of each model, to fully appreciate the contribution of this paper. Papers that are very mathematically heavy can have tabular summaries below proofs. 
+
+The symmetric normalization trick in the equation could also have been explained in greater detail, especially why D^-1/2 is multiplied to both sides of the adjacency matrix.
+
+On a more minor note, there could have also been a small table showing the hyperparameter tuning ablation study. The authors also note that the model performs well with 2/3 layers, but this is tested and noted in the appendix. A quick mention in the main body would have made this choice clearer.
