@@ -1,6 +1,6 @@
-Paper Review Log:  Session 3 (2024/10/30)
+Paper Review Log For:  Session 3 (2024/10/30)
 
-Name and (crsid): Sidharrth Nagappan
+Name and (crsid): Sidharrth Nagappan (sn666)
 
 Paper Title and Authors: Semi-Supervised Classification With Graph Convolutional Neural Networks -- Thomas N. Kipf, Max Welling, 2017
 
@@ -17,7 +17,7 @@ What is the significant contribution?
 What is the difference from the existing work?
 ----------------------------------------------
 
-Main contribution is the mathematical propagation model that uses a first-order approximation of the Chebyshev polynomials, thereby reducing the computational complexity from quadratic to linear. The paper then made GCNs the new default, outperforming prior spectral graph convolutions. 
+Main contribution is the mathematical propagation model that uses a first-order approximation of the Chebyshev polynomials, thereby reducing the computational complexity from quadratic to linear. The paper then made GCNs the new default in the literature, outperforming prior spectral graph convolutions, and paving the way for more complex models like Graph Attention Networks in the next years. 
 
 Essentially, in 2013, Spectral Graph Convolutions required Graph Fourier Transform and ran at a complexity of O(N^3). In 2016, Defferrard et al. reduced it to O(K|E|) by using Chebyshev polynomials - where K is order of Chebyshev and E is number of edges. This paper reduces it to O(|E|) by setting K=1 and approximating the polynomial in the first order. The GCN therefore scales in situations where computing high-order Chebyshev polynomials will be slow and expensive. Furthermore, unlike past work that required separate parameters for each order of polynomial expansion, this paper reduces it to a single weight matrix per layer, decreasing complexity further. The paper also improves training stability (vanishing/exploding gradients) with symmetrically normalising the adjaceny matrix using self-loops and the degrees of each node's neighbours. The paper also empirically proves that simplifying the model does not compromise performance.
 
@@ -27,8 +27,8 @@ The paper is quite theory-heavy and the proofs took a while to properly understa
 Any criticism and suggestions to the authors?
 ---------------------------------------------
 
-This may be a personal opinion, but the authors could have presented the evolution of the propagation model in terms of computational complexity in a clearer manner. I had to read the paper multiple times and read several online articles to understand the complexity order of each model, to fully appreciate the contribution of this paper. Papers that are very mathematically heavy can have tabular summaries below proofs. 
+This may be a personal opinion, but the authors could have presented the evolution of the propagation model in terms of computational complexity in a tabular manner. I had to read the paper multiple times and read several online articles to understand the complexity order of each model, to fully appreciate the paper's contributions.
 
-The symmetric normalization trick in the equation could also have been explained in greater detail, especially why D^-1/2 is multiplied to both sides of the adjacency matrix.
+The symmetric normalization trick in the equation could also have been explained in greater detail, especially why D^-1/2 is multiplied to both sides of the adjacency matrix. At first sight, it is not intuitive enough for people without a strong graph theory background. 
 
-On a more minor note, there could have also been a small table showing the hyperparameter tuning ablation study. The authors also note that the model performs well with 2/3 layers, but this is tested and noted in the appendix. A quick mention in the main body would have made this choice clearer.
+On a more minor note, there could have also been a small table showing the hyperparameter tuning ablation study. The authors also note that the model performs well with 2/3 layers, but this is tested and noted in the appendix. A reason in the main body would have made this choice clearer.
