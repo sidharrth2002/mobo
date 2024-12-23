@@ -1,0 +1,37 @@
+Paper Review Log For:  Session 7 (2024/11/27)
+
+Name and (crsid): Sidharrth Nagappan (sn666)
+
+Paper Title and Authors: EINNET: Optimizing Tensor Programs with Derivation-Based Transformations
+by Liyan Zheng, Haojie Wang, Jidong Zhai, Muyan Hu, Zixuan Ma, Tuowei Wang, and Shuhong Huang, Tsinghua University; Xupeng Miao, Carnegie Mellon University; Shizhi Tang and Kezhao Huang, Tsinghua University; Zhihao Jia, Carnegie Mellon University
+
+-----------------------
+
+1. Paper Summary (<100 words) 
+Describe a brief summary (extract essentials).
+
+EinnNet optimises deep neural network computation graphs by first breaking them down into general tensor algebra, before applying mathematical derivcations to simplify the computation. Their method also allows the creation of custom "eOperators" that are specialised to context-dependent tasks. After an optimised search operation that explores different permutations of derivations, the simplified algebra is then mapped to the engine's available operations to deliver a faster computation graph. The search is also informed by the available operations in the backend engine available, to ensure that the final computation graph is compatible. 
+
+2. Punch-line of the Paper (<200 words):
+What is the significant contribution?
+What is the difference from the existing work?
+
+-----------------------
+
+Past work only mapped computations to Predefined Operator Representable (POR) transformations, so one could only rearrange or combine popular operators like convolutions. Custom operators cannot be creator and computation semantics are quite rigid. EinnNet tackles this rigidity by using intermediate tensor algebra, and an optimisation search space to build custom and efficient computation graphs. A distance-guided search algorithm is used to restrict the search space to only the operations that are computable with the available backend engine -- this is quite innovative, but it has flaws that I will discuss later.
+
+The authors use models of varying types and sizes including GANs, GCNs and large transformers to show that EinnNet achieves up to 2.72x speedup on A100 GPUs and up to 2.67x speedup on V100 GPUs -- I commend the effort to use several recipes of models. They also demonstrate that the method is compatible with existing backends like cuDNN and AutoTVM and that building custom operators for each backend is important for improving performance. 
+
+The paper shows an example of optimising a 3x3 convolution, and shows up to 2x speedup compared to a standard cuDNN. Full mathematical derivations are also provided for simplifying a 3x3 convolution and a GCN. 
+
+3. Any major criticism to the authors (<150 words) ?
+Any criticism and suggestions to the authors?
+---------------------------------------------
+
+It is unclear how long EinnNet takes to actually optimise the graph, especially for large models. When comparing with similar competitors in the literature, this could also be a comparison metric. 
+
+All the models compared do not have parameter sizes listed, so it is hard to gauge the exact complexity of the model. 
+
+As for the distance-guided search algorithm, it is not clear how different search depths impact the speedups and the performance of the final computation graph. More detailed ablations on the search algorithm would be helpful. 
+
+Their source code is also not well documented: https://github.com/zhengly123/OSDI23-EinNet-AE, which makes evaluation harder for newer papers to benchmark against. 

@@ -1,0 +1,5 @@
+{
+  "hidden_units": 32,
+  "lr": 0.01,
+  "num_layers": 1
+}
