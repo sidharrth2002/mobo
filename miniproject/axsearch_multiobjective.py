@@ -2,6 +2,8 @@ import copy
 import pickle
 from typing import Dict, List, Optional, Union
 
+import numpy as np
+
 from ray.tune.result import DEFAULT_METRIC
 from ray.tune.search.sample import (
     Categorical,
@@ -20,6 +22,7 @@ from ray.tune.search import (
 from ray.tune.search.variant_generator import parse_spec_vars
 from ray.tune.utils.util import flatten_dict, unflatten_dict
 from ax.service.utils.instantiation import ObjectiveProperties
+from ray.tune.utils.util import flatten_dict, unflatten_list_dict
 
 try:
     import ax
@@ -142,8 +145,8 @@ class AxSearchMultiObjective(Searcher):
     def __init__(
         self,
         space: Optional[Union[Dict, List[Dict]]] = None,
-        metric: Optional[str] = None,
-        mode: Optional[str] = None,
+        metric: Optional[Union[str, List[str]]] = None,
+        mode: Optional[Union[str, List[str]]] = None,
         points_to_evaluate: Optional[List[Dict]] = None,
         parameter_constraints: Optional[List] = None,
         outcome_constraints: Optional[List] = None,
@@ -276,9 +279,11 @@ class AxSearchMultiObjective(Searcher):
             "min" if obj.minimize else "max"
             for obj in exp.optimization_config.objective.objectives
         ]
+        print(f"Modes: {self._modes}")
         self._metrics = [
             obj.metric.name for obj in exp.optimization_config.objective.objectives
         ]
+        print(f"Metrics: {self._metrics}")
 
         self._parameters = list(exp.parameters)
 
@@ -295,6 +300,7 @@ class AxSearchMultiObjective(Searcher):
             return False
         space = self.convert_search_space(config)
         self._space = space
+        
         # if metric:
         #     self._metric = metric
         # if mode:
@@ -333,7 +339,20 @@ class AxSearchMultiObjective(Searcher):
                 return None
 
         self._live_trial_mapping[trial_id] = trial_index
-        return unflatten_dict(parameters)
+        try:
+            suggested_config = unflatten_list_dict(parameters)
+        except AssertionError:
+            # Fails to unflatten if keys are out of order, which only happens
+            # if search space includes a list with both constants and
+            # tunable hyperparameters:
+            # Ex: "a": [1, tune.uniform(2, 3), 4]
+            suggested_config = unflatten_list_dict(
+                {k: parameters[k] for k in sorted(parameters.keys())}
+            )
+        
+        print(f"Suggested config: {suggested_config}")
+        
+        return suggested_config
 
     def on_trial_complete(self, trial_id, result=None, error=False):
         """Notification for the completion of trial.
@@ -345,6 +364,7 @@ class AxSearchMultiObjective(Searcher):
         self._live_trial_mapping.pop(trial_id)
 
     def _process_result(self, trial_id, result):
+        print(f"Result: {result}")
         ax_trial_index = self._live_trial_mapping[trial_id]
         # metric_dict = {self._metric: (result[self._metric], None)}
         # outcome_names = [
@@ -355,12 +375,38 @@ class AxSearchMultiObjective(Searcher):
         # self._ax.complete_trial(trial_index=ax_trial_index, raw_data=metric_dict)
 
         # Create a metric dictionary for multi-objective optimization
+        # metric_dict = {}
+        # for metric in self._metrics:
+        #     metric_dict[metric] = (result.get(metric), None)
+
+        # # Add outcome constraints to the metric dictionary
+        # outcome_names = [
+        #     oc.metric.name
+        #     for oc in self._ax.experiment.optimization_config.outcome_constraints
+        # ]
+        # metric_dict.update({on: (result.get(on), None) for on in outcome_names})
+
+        # self._ax.complete_trial(trial_index=ax_trial_index, raw_data=metric_dict)
+
+        metrics_to_include = self._metrics + [
+            oc.metric.name
+            for oc in self._ax.experiment.optimization_config.outcome_constraints
+        ]
+        print(f"Metrics to include: {metrics_to_include}")
         metric_dict = {}
-        for metric in self._metrics:
-            metric_dict[metric] = (result.get(metric), None)
-
+        for key in metrics_to_include:
+            val = result[key]
+            if np.isnan(val) or np.isinf(val):
+                # Don't report trials with NaN metrics to Ax
+                self._ax.abandon_trial(
+                    trial_index=ax_trial_index,
+                    reason=f"nan/inf metrics reported by {trial_id}",
+                )
+                return
+            metric_dict[key] = (val, None)
+        
+        print(f"Metric dict after trial: {metric_dict}")
         self._ax.complete_trial(trial_index=ax_trial_index, raw_data=metric_dict)
-
 
     @staticmethod
     def convert_search_space(spec: Dict):
@@ -429,15 +475,15 @@ class AxSearchMultiObjective(Searcher):
                 )
             )
 
-        # Fixed vars
+        # Parameter name is e.g. "a/b/c" for nested dicts,
+        # "a/d/0", "a/d/1" for nested lists (using the index in the list)
         fixed_values = [
-            {"name": "/".join(path), "type": "fixed", "value": val}
+            {"name": "/".join(str(p) for p in path), "type": "fixed", "value": val}
             for path, val in resolved_vars
         ]
-
-        # Parameter name is e.g. "a/b/c" for nested dicts
         resolved_values = [
-            resolve_value("/".join(path), domain) for path, domain in domain_vars
+            resolve_value("/".join(str(p) for p in path), domain)
+            for path, domain in domain_vars
         ]
 
         return fixed_values + resolved_values
