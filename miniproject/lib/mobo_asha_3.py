@@ -10,6 +10,25 @@ logger = logging.getLogger(__name__)
 EPS_NET = "eps_net"
 NSGA_II = "nsga_ii"
 
+def prepare_sign_vector(objectives):
+    """Generates a numpy vector to flip signs of objectives for minimization.
+
+    Args:
+        objectives: Dictionary specifying "min" or "max" for each objective.
+
+    Returns:
+        sign_vector: Numpy array where 1 corresponds to maximization, -1 to minimization.
+    """
+    converter = {
+        "min": -1.0,
+        "max": 1.0
+    }
+    try:
+        sign_vector = np.array([converter[objectives[k]] for k in objectives])
+    except KeyError:
+        raise ValueError("Objectives must be 'min' or 'max'.")
+    return sign_vector
+
 
 @PublicAPI
 class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
@@ -50,9 +69,11 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
         self.grace_period = grace_period
         self.reduction_factor = reduction_factor
         self.strategy = strategy
-        self.sign_vector = np.array(
-            [-1 if v == "max" else 1 for v in objectives.values()]
-        )
+        # self.sign_vector = np.array(
+        #     [-1 if v == "max" else 1 for v in objectives.values()]
+        # )
+        # TODO: JUST CHANGED, UNTESTED
+        self.sign_vector = prepare_sign_vector(objectives)
 
         self.brackets = []
         self.trial_info = {}
