@@ -73,7 +73,8 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
         #     [-1 if v == "max" else 1 for v in objectives.values()]
         # )
         # TODO: JUST CHANGED, UNTESTED
-        self.sign_vector = prepare_sign_vector(objectives)
+        # added negative sign there
+        self.sign_vector = -prepare_sign_vector(objectives)
 
         self.brackets = []
         self.trial_info = {}
@@ -149,7 +150,7 @@ class MultiObjectiveBracket:
             if pareto_front is not None and not self._is_promotable(
                 metrics, pareto_front
             ):
-                print(f"Trial {trial.trial_id} is not promotable")
+                print(f"Trial {trial.trial_id} is not promotable with metrics {metrics} at resource {resource}")
                 action = TrialScheduler.STOP
 
             recorded[trial.trial_id] = metrics

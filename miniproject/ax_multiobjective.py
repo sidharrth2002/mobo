@@ -37,6 +37,12 @@ import sys
 from ax.modelbridge.cross_validation import compute_diagnostics, cross_validate
 from ax.plot.diagnostic import interact_cross_validation_plotly
 
+import torch
+
+# is CUDA available?
+print(f"Is CUDA available: {torch.cuda.is_available()}")
+print(f"Number of GPUs: {torch.cuda.device_count()}")
+# sys.exit(0)
 
 def handle_sigint(signum, frame):
     print("Signal received, terminating...")
@@ -151,9 +157,9 @@ class MNISTClassifier(pl.LightningModule):
 
 
 class MNISTDataModule(pl.LightningDataModule):
-    def __init__(self, batch_size=128):
+    def __init__(self, batch_size=128, data_path="./data"):
         super().__init__()
-        self.data_dir = tempfile.mkdtemp()
+        self.data_dir = data_path
         self.batch_size = batch_size
         self.transform = transforms.Compose(
             [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
@@ -161,6 +167,11 @@ class MNISTDataModule(pl.LightningDataModule):
 
     def setup(self, stage=None):
         with FileLock(f"{self.data_dir}.lock"):
+            if not os.path.exists(os.path.join(self.data_dir, "MNIST")):
+                print("Downloading MNIST dataset...")
+            else:
+                print("Using cached MNIST dataset...")
+                
             mnist = MNIST(
                 self.data_dir, train=True, download=True, transform=self.transform
             )
@@ -275,6 +286,12 @@ if __name__ == "__main__":
         action=argparse.BooleanOptionalAction,
         help="If set to True, uses the scaling config",
     )
+    argparser.add_argument(
+        "--data_path",
+        type=str,
+        required=True,
+        help="Persistent location for storing the MNIST dataset",
+    )
 
     args = argparser.parse_args()
 
@@ -366,7 +383,7 @@ if __name__ == "__main__":
     logging.info(f"Tune config: {tune_config}")
 
     def train_func(config):
-        data_module = MNISTDataModule(batch_size=config["batch_size"])
+        data_module = MNISTDataModule(batch_size=config["batch_size"], data_path=args.data_path)
         logging.info(f"printing config, {config}")
 
         # instantiate config object
@@ -384,13 +401,14 @@ if __name__ == "__main__":
         logging.info(f"Using accelerator: {args.accelerator}")
 
         trainer = pl.Trainer(
-            devices=10,
+            devices=5,
             accelerator=args.accelerator,
             strategy=RayDDPStrategy(),
             callbacks=[RayTrainReportCallback()],
             plugins=[RayLightningEnvironment()],
             enable_progress_bar=False,
-            max_epochs=1,
+            # TODO: put this back?
+            max_epochs=args.max_num_epochs,
         )
 
         trainer = prepare_trainer(trainer)
@@ -398,8 +416,13 @@ if __name__ == "__main__":
 
     if args.use_scaling_config:
         scaling_config = ScalingConfig(
-            num_workers=3, use_gpu=True, resources_per_worker={"CPU": 1, "GPU": 1}
+            num_workers=min(5, torch.cuda.device_count()), use_gpu=True, resources_per_worker={"CPU": 5, "GPU": 1}
         )
+
+        # scaling_config = ScalingConfig(
+        #     num_workers=2, use_gpu=True
+        # )
+
         logging.info(f"Scaling config: {scaling_config}")
 
         ray_trainer = TorchTrainerMultiObjective(
