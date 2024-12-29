@@ -25,7 +25,7 @@ import logging
 from ray.train import RunConfig, ScalingConfig, CheckpointConfig
 from ray.tune import TuneConfig, Tuner
 from lib.ax_torchtrainer import TorchTrainerMultiObjective
-from lib.mobo_asha_3 import MultiObjectiveAsyncHyperBandScheduler
+from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
 import pickle
 from ax.service.utils.report_utils import _pareto_frontier_scatter_2d_plotly
 import json
@@ -86,7 +86,7 @@ class MNISTClassifier(pl.LightningModule):
         self.eval_accuracy = []
 
         self.model_params = int(round(sum(p.numel() for p in self.parameters())))
-        logging.info(f"Model parameters: {self.model_params}")
+        print(f"Model parameters: {self.model_params}")
 
     def forward(self, x):
         batch_size, channels, width, height = x.size()
@@ -274,6 +274,18 @@ if __name__ == "__main__":
         help="Maximum number of trials after which scheduler decides whether to stop",
     )
     argparser.add_argument(
+        "--scheduler_grace_period",
+        type=int,
+        default=1,
+        help="Grace period for the scheduler",
+    )
+    argparser.add_argument(
+        "--scheduler_reduction_factor",
+        type=int,
+        default=4,
+        help="Reduction factor for the scheduler",
+    )
+    argparser.add_argument(
         "--accelerator",
         type=str,
         choices=["auto", "cpu", "gpu", "mps"],
@@ -292,10 +304,16 @@ if __name__ == "__main__":
         required=True,
         help="Persistent location for storing the MNIST dataset",
     )
+    argparser.add_argument(
+        "--remark",
+        type=str,
+        default="",
+        help="Note to save with the results to identify this run later"
+    )
 
     args = argparser.parse_args()
 
-    logging.info(f"Running optimisation with args: {args}")
+    print(f"Running optimisation with args: {args}")
 
     ax_client = AxClient(verbose_logging=False)
 
@@ -336,18 +354,18 @@ if __name__ == "__main__":
             )
         general_objectives[args.objective_3] = args.objective_3_type
 
-    logging.info(
+    print(
         f"Using {len(ax_client_objectives)} Objectives: {ax_client_objectives}"
     )
 
     ax_client.create_experiment(
         name="mnist_nas_multiobjective",
         parameters=[
-            {"name": "layer_1_size", "type": "choice", "values": [32, 64]},
-            {"name": "layer_2_size", "type": "choice", "values": [64, 128]},
-            {"name": "layer_3_size", "type": "choice", "values": [128, 256]},
+            {"name": "layer_1_size", "type": "choice", "values": [16, 32]},
+            {"name": "layer_2_size", "type": "choice", "values": [32, 64]},
+            {"name": "layer_3_size", "type": "choice", "values": [64, 128]},
             {"name": "dropout", "type": "range", "bounds": [0.1, 0.3]},
-            {"name": "batch_size", "type": "choice", "values": [32, 64, 128]},
+            {"name": "batch_size", "type": "choice", "values": [64, 128]},
             {"name": "learning_rate", "type": "range", "bounds": [1e-4, 1e-1]},
         ],
         objectives=ax_client_objectives,
@@ -355,7 +373,7 @@ if __name__ == "__main__":
 
     algo = AxSearchMultiObjective(ax_client=ax_client)
     # limit the number of concurrent trials
-    logging.info(f"Limiting concurrent trials to {args.max_concurrent}")
+    print(f"Limiting concurrent trials to {args.max_concurrent}")
     algo = ConcurrencyLimiter(algo, max_concurrent=args.max_concurrent)
 
     run_config = RunConfig(
@@ -365,26 +383,29 @@ if __name__ == "__main__":
             checkpoint_score_order="max",
         )
     )
-    logging.info(f"Run config: {run_config}")
+    print(f"Run config: {run_config}")
 
     tune_config = TuneConfig(num_samples=args.num_samples, search_alg=algo)
 
     if args.use_scheduler:
         scheduler = MultiObjectiveAsyncHyperBandScheduler(
-            max_t=args.scheduler_max_t, objectives=general_objectives
+            max_t=args.scheduler_max_t, 
+            objectives=general_objectives, 
+            grace_period=args.scheduler_grace_period, 
+            reduction_factor=args.scheduler_reduction_factor
         )
 
         tune_config.scheduler = scheduler
 
-        logging.info(f"Using MO-ASHA scheduler: {scheduler}")
+        print(f"Using MO-ASHA scheduler: {scheduler}")
     else:
-        logging.info("NOT USING ANY SCHEDULER, WOULD USE FIFO!")
+        print("NOT USING ANY SCHEDULER, WOULD USE FIFO!")
 
-    logging.info(f"Tune config: {tune_config}")
+    print(f"Tune config: {tune_config}")
 
     def train_func(config):
         data_module = MNISTDataModule(batch_size=config["batch_size"], data_path=args.data_path)
-        logging.info(f"printing config, {config}")
+        print(f"printing config, {config}")
 
         # instantiate config object
         config = ModelConfig(
@@ -398,10 +419,10 @@ if __name__ == "__main__":
 
         model = MNISTClassifier(config=config)
 
-        logging.info(f"Using accelerator: {args.accelerator}")
+        print(f"Using accelerator: {args.accelerator}")
 
         trainer = pl.Trainer(
-            devices=5,
+            devices="auto",
             accelerator=args.accelerator,
             strategy=RayDDPStrategy(),
             callbacks=[RayTrainReportCallback()],
@@ -415,15 +436,16 @@ if __name__ == "__main__":
         trainer.fit(model, datamodule=data_module)
 
     if args.use_scaling_config:
-        scaling_config = ScalingConfig(
-            num_workers=min(5, torch.cuda.device_count()), use_gpu=True, resources_per_worker={"CPU": 5, "GPU": 1}
-        )
-
         # scaling_config = ScalingConfig(
-        #     num_workers=2, use_gpu=True
+        #     num_workers=min(5, torch.cuda.device_count()), use_gpu=True, resources_per_worker={"CPU": 5, "GPU": 1}
         # )
 
-        logging.info(f"Scaling config: {scaling_config}")
+        # TODO: Idk how the scaling actually works, ignore for now
+        scaling_config = ScalingConfig(
+            num_workers=3, use_gpu=True, resources_per_worker={"CPU": 1, "GPU": 1}
+        )
+
+        print(f"Scaling config: {scaling_config}")
 
         ray_trainer = TorchTrainerMultiObjective(
             train_func,
@@ -440,16 +462,16 @@ if __name__ == "__main__":
 
     tuning_results = tuner.fit()
 
-    logging.info(f"Results: {tuning_results}")
+    print(f"Results: {tuning_results}")
 
     configuration_hash = generate_uuid()
 
     # create a folder in results directory
-    logging.info(f"Creating a folder for configuration: {configuration_hash}")
+    print(f"Creating a folder for configuration: {configuration_hash}")
 
     os.makedirs(f"results/{configuration_hash}", exist_ok=True)
 
-    logging.info(f"Configuration hash: {configuration_hash}")
+    print(f"Configuration hash: {configuration_hash}")
 
     # save args used in this run
     with open(f"results/{configuration_hash}/args.json", "w") as f:
@@ -465,19 +487,19 @@ if __name__ == "__main__":
 
     # pickle and save the tuning_results
     with open(f"results/{configuration_hash}/tuning_results.pkl", "wb") as f:
-        logging.info(
+        print(
             f"Saving tuning results to file: results/{configuration_hash}/tuning_results.pkl"
         )
         pickle.dump(tuning_results, f)
 
     # save the pareto
-    logging.info(f"Plotting the pareto front for configuration: {configuration_hash}")
+    print(f"Plotting the pareto front for configuration: {configuration_hash}")
     pareto = _pareto_frontier_scatter_2d_plotly(ax_client.experiment)
     pareto.write_image(f"results/{configuration_hash}/pareto.png")
     pareto.write_html(f"results/{configuration_hash}/pareto.html")
 
     # save cv surrogate model
-    # logging.info(f"Saving CV surrogate model for configuration: {configuration_hash}")
+    # print(f"Saving CV surrogate model for configuration: {configuration_hash}")
     # cv = cross_validate(model=ax_client.generation_strategy.model)
     # compute_diagnostics(cv)
     # cv_plot = interact_cross_validation_plotly(cv)
@@ -485,7 +507,7 @@ if __name__ == "__main__":
     # cv_plot.write_html(f"results/{configuration_hash}/cv.html")
 
     # save contour plot
-    # logging.info(f"Saving contour plot for configuration: {configuration_hash}")
+    # print(f"Saving contour plot for configuration: {configuration_hash}")
 
     # for objective in general_objectives:
     #     countour_plot = interact_contour_plotly(
