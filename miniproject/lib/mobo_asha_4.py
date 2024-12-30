@@ -1,4 +1,5 @@
 import logging
+import time
 import numpy as np
 import copy
 from ray.tune.experiment import Trial
@@ -61,7 +62,7 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
           grace_period=1,
           reduction_factor=3,
           strategy=EPS_NET
-    )
+      )
 
     Then pass `scheduler` to Ray Tune's `tune.run(..., scheduler=scheduler)`.
     """
@@ -202,6 +203,7 @@ class MultiObjectiveBracket:
         # and "recorded" = { trial_id -> metrics_array }
         # e.g.: [ {"level":1,"recorded":{}}, {"level":3,"recorded":{}}, {"level":9,"recorded":{}} ]
         self.rungs = [{"level": lvl, "recorded": {}} for lvl in rung_levels]
+        print(f"Rungs: {self.rungs}")
 
     def on_result(self, trial, resource, metrics):
         """
@@ -211,6 +213,7 @@ class MultiObjectiveBracket:
         """
         action = TrialScheduler.CONTINUE
 
+        time_start = time.time()
         # We iterate over rung levels in ascending order
         for rung in self.rungs:
             # If trial hasn't reached this rung's resource, skip
@@ -229,7 +232,7 @@ class MultiObjectiveBracket:
 
             # Check if new trial is dominated by the rung's best solutions
             if candidates is not None and not self._is_promotable(metrics, candidates):
-                logger.info(f"[Rung={rung['level']}] Trial {trial.trial_id} is dominated. -> STOP")
+                print(f"[Rung={rung['level']}] Trial {trial.trial_id} is dominated. -> STOP")
                 action = TrialScheduler.STOP
 
             # Record this trial in rung
@@ -237,6 +240,9 @@ class MultiObjectiveBracket:
             # Only record in the first rung for which resource >= rung["level"], then break
             break
 
+        time_end = time.time()
+        
+        print(f"Time taken for on_result: {time_end - time_start}")
         return action
 
     def _calculate_candidates(self, recorded):

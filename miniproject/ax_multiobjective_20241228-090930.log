@@ -1,0 +1,736 @@
+[WARNING 12-28 09:09:36] ax.service.utils.with_db_settings_base: Ax currently requires a sqlalchemy version below 2.0. This will be addressed in a future release. Disabling SQL storage in Ax for now, if you would like to use SQL storage please install Ax with mysql extras via `pip install ax-platform[mysql]`.
+INFO:root:Running optimisation with args: Namespace(num_samples=25, max_num_epochs=4, num_gpus=2, objective_1='ptl/val_accuracy', objective_1_type='max', objective_1_threshold=0.9, objective_2='ptl/model_params', objective_2_type='min', objective_2_threshold=100000.0, objective_3=None, objective_3_type=None, objective_3_threshold=None, max_concurrent=10, use_scheduler=False, scheduler_max_t=2, accelerator='gpu', use_scaling_config=False, data_path='/home/sn666/large-scale-data-processing/miniproject/data')
+INFO:root:Using 2 Objectives: {'ptl/val_accuracy': ObjectiveProperties(minimize=False, threshold=0.9), 'ptl/model_params': ObjectiveProperties(minimize=True, threshold=100000.0)}
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.INT for parameter layer_1_size. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `is_ordered` is not specified for `ChoiceParameter` "layer_1_size". Defaulting to `True`  since there are exactly two choices.. To override this behavior (or avoid this warning), specify `is_ordered` during `ChoiceParameter` construction. Note that choice parameters with exactly 2 choices are always considered ordered and that the user-supplied `is_ordered` has no effect in this particular case.
+  return ChoiceParameter(
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `sort_values` is not specified for `ChoiceParameter` "layer_1_size". Defaulting to `True` for parameters of `ParameterType` INT. To override this behavior (or avoid this warning), specify `sort_values` during `ChoiceParameter` construction.
+  return ChoiceParameter(
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.INT for parameter layer_2_size. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `is_ordered` is not specified for `ChoiceParameter` "layer_2_size". Defaulting to `True`  since there are exactly two choices.. To override this behavior (or avoid this warning), specify `is_ordered` during `ChoiceParameter` construction. Note that choice parameters with exactly 2 choices are always considered ordered and that the user-supplied `is_ordered` has no effect in this particular case.
+  return ChoiceParameter(
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `sort_values` is not specified for `ChoiceParameter` "layer_2_size". Defaulting to `True` for parameters of `ParameterType` INT. To override this behavior (or avoid this warning), specify `sort_values` during `ChoiceParameter` construction.
+  return ChoiceParameter(
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.INT for parameter layer_3_size. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `is_ordered` is not specified for `ChoiceParameter` "layer_3_size". Defaulting to `True`  since there are exactly two choices.. To override this behavior (or avoid this warning), specify `is_ordered` during `ChoiceParameter` construction. Note that choice parameters with exactly 2 choices are always considered ordered and that the user-supplied `is_ordered` has no effect in this particular case.
+  return ChoiceParameter(
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `sort_values` is not specified for `ChoiceParameter` "layer_3_size". Defaulting to `True` for parameters of `ParameterType` INT. To override this behavior (or avoid this warning), specify `sort_values` during `ChoiceParameter` construction.
+  return ChoiceParameter(
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.FLOAT for parameter dropout. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.INT for parameter batch_size. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `is_ordered` is not specified for `ChoiceParameter` "batch_size". Defaulting to `True`  since the parameter is not of type string.. To override this behavior (or avoid this warning), specify `is_ordered` during `ChoiceParameter` construction. Note that choice parameters with exactly 2 choices are always considered ordered and that the user-supplied `is_ordered` has no effect in this particular case.
+  return ChoiceParameter(
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/service/utils/instantiation.py:248: AxParameterWarning: `sort_values` is not specified for `ChoiceParameter` "batch_size". Defaulting to `True` for parameters of `ParameterType` INT. To override this behavior (or avoid this warning), specify `sort_values` during `ChoiceParameter` construction.
+  return ChoiceParameter(
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Inferred value type of ParameterType.FLOAT for parameter learning_rate. If that is not the expected value type, you can explicitly specify 'value_type' ('int', 'float', 'bool' or 'str') in parameter dict.
+[INFO 12-28 09:09:36] ax.service.utils.instantiation: Created search space: SearchSpace(parameters=[ChoiceParameter(name='layer_1_size', parameter_type=INT, values=[16, 32], is_ordered=True, sort_values=True), ChoiceParameter(name='layer_2_size', parameter_type=INT, values=[32, 64], is_ordered=True, sort_values=True), ChoiceParameter(name='layer_3_size', parameter_type=INT, values=[64, 128], is_ordered=True, sort_values=True), RangeParameter(name='dropout', parameter_type=FLOAT, range=[0.1, 0.3]), ChoiceParameter(name='batch_size', parameter_type=INT, values=[32, 64, 128], is_ordered=True, sort_values=True), RangeParameter(name='learning_rate', parameter_type=FLOAT, range=[0.0001, 0.1])], parameter_constraints=[]).
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: Using Models.BOTORCH_MODULAR since there is at least one ordered parameter and there are no unordered categorical parameters.
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: Calculating the number of remaining initialization trials based on num_initialization_trials=None max_initialization_trials=None num_tunable_parameters=6 num_trials=None use_batch_trials=False
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: calculated num_initialization_trials=12
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: num_completed_initialization_trials=0 num_remaining_initialization_trials=12
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: `verbose`, `disable_progbar`, and `jit_compile` are not yet supported when using `choose_generation_strategy` with ModularBoTorchModel, dropping these arguments.
+[INFO 12-28 09:09:36] ax.modelbridge.dispatch_utils: Using Bayesian Optimization generation strategy: GenerationStrategy(name='Sobol+BoTorch', steps=[Sobol for 12 trials, BoTorch for subsequent trials]). Iterations after 12 will take longer to generate due to model-fitting.
+WARNING:lib.axsearch_multiobjective:Detected sequential enforcement. Be sure to use a ConcurrencyLimiter.
+INFO:root:Limiting concurrent trials to 10
+INFO:root:Run config: RunConfig(storage_path='/home/sn666/ray_results', checkpoint_config=CheckpointConfig(num_to_keep=2, checkpoint_score_attribute='ptl/val_accuracy'), verbose=1)
+INFO:root:NOT USING ANY SCHEDULER, WOULD USE FIFO!
+INFO:root:Tune config: TuneConfig(mode=None, metric=None, search_alg=<ray.tune.search.concurrency_limiter.ConcurrencyLimiter object at 0x7b77b0b9fed0>, scheduler=None, num_samples=25, max_concurrent_trials=None, time_budget_s=None, reuse_actors=False, trial_name_creator=None, trial_dirname_creator=None, chdir_to_trial_dir='DEPRECATED')
+2024-12-28 09:09:36,957	INFO tuner_internal.py:397 -- A `RunConfig` was passed to both the `Tuner` and the `TorchTrainerMultiObjective`. The run config passed to the `Tuner` is the one that will be used.
+2024-12-28 09:09:39,187	INFO worker.py:1819 -- Started a local Ray instance.
+2024-12-28 09:09:45,444	INFO tune.py:253 -- Initializing Ray automatically. For cluster usage or custom Ray initialization, call `ray.init(...)` before `Tuner(...)`.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:09:45,500	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:09:50,723	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1859851)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(RayTrainWorker pid=1860019)[0m Setting up process group for: env:// [rank=0, world_size=1]
+[36m(TorchTrainerMultiObjective pid=1859851)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1859851)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1860019) world_rank=0, local_rank=0, node_rank=0
+2024-12-28 09:09:55,920	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_4a70303e
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1859851, ip=128.232.119.192, actor_id=1beee50106be526172f91cf301000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1860019, ip=128.232.119.192, actor_id=6787d167995479a2922b539301000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x75aeaa09b1d0>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:09:56,008	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860018)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860018)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1860018)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1860226) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1860226)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:00,996	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_0c774af3
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1860018, ip=128.232.119.192, actor_id=8f53eaecb6670fd7da02189401000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1860226, ip=128.232.119.192, actor_id=c5e1398923afabd9753d55e301000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x7ab09836a610>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:01,347	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860227)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860227)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1860227)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1860640) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1860640)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:06,335	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_694361b3
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1860227, ip=128.232.119.192, actor_id=51fb3b2f0b7b547e4aaeb65b01000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1860640, ip=128.232.119.192, actor_id=6d1455ff99cefa18b5ef92cc01000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x775e0a05e750>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:06,654	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860641)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1860641)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1860641)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1861157) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1861157)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:11,845	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_29fd3e54
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1860641, ip=128.232.119.192, actor_id=3b287cfb437efa0ca2d3048a01000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1861157, ip=128.232.119.192, actor_id=ba9059538abe822b9e7a26ad01000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x7c78240c5890>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:12,106	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1861158)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1861158)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1861158)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1861689) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1861689)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:17,296	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_e52a3e27
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1861158, ip=128.232.119.192, actor_id=087778768a529cbbd655083201000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1861689, ip=128.232.119.192, actor_id=c2779f3d43c68a522e515f0201000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x751f54d189d0>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:17,436	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1861688)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1861688)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1861688)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1862307) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1862307)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:22,624	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_cf1f9756
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1861688, ip=128.232.119.192, actor_id=787efa8be1de75322e6ac8fd01000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1862307, ip=128.232.119.192, actor_id=e0cf9ad47465765c3b924a0f01000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x7c7f4cd1a050>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:22,751	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1862308)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1862308)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1862308)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1862787) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1862787)[0m Setting up process group for: env:// [rank=0, world_size=1]
+2024-12-28 09:10:27,945	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_57cce5c4
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1862308, ip=128.232.119.192, actor_id=2dad5fac03f116a2a836916801000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1862787, ip=128.232.119.192, actor_id=9e4d583d9a1296327b4b21ca01000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x71cab8d18f10>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:28,062	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1862786)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(RayTrainWorker pid=1863246)[0m Setting up process group for: env:// [rank=0, world_size=1]
+[36m(TorchTrainerMultiObjective pid=1862786)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1862786)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1863246) world_rank=0, local_rank=0, node_rank=0
+2024-12-28 09:10:33,047	ERROR tune_controller.py:1331 -- Trial task failed for trial TorchTrainerMultiObjective_e9beaf93
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+             ^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 2753, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 904, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_Inner.train()[39m (pid=1862786, ip=128.232.119.192, actor_id=dbe4b7a6d3b8da2bf77776c301000000, repr=TorchTrainerMultiObjective)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 331, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 57, in check_for_failure
+    ray.get(object_ref)
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayTaskError(MisconfigurationException): [36mray::_RayTrainWorker__execute.get_next()[39m (pid=1863246, ip=128.232.119.192, actor_id=7c9c5a41e12b598178e7ab4601000000, repr=<ray.train._internal.worker_group.RayTrainWorker object at 0x79ba83fea010>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/worker_group.py", line 33, in __execute
+    raise skipped from exception_cause(skipped)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/train/_internal/utils.py", line 176, in discard_return_wrapper
+    train_func(*args, **kwargs)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 403, in train_func
+    trainer = pl.Trainer(
+              ^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 396, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 144, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 354, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ax/modelbridge/cross_validation.py:463: UserWarning: Encountered exception in computing model fit quality: RandomModelBridge does not support prediction.
+  warn("Encountered exception in computing model fit quality: " + str(e))
+2024-12-28 09:10:33,352	INFO data_parallel_trainer.py:340 -- GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+[36m(TorchTrainerMultiObjective pid=1863245)[0m GPUs are detected in your Ray cluster, but GPU training is not enabled for this trainer. To enable GPU training, make sure to set `use_gpu` to True in your scaling config.
+2024-12-28 09:10:36,582	WARNING tune.py:219 -- Stop signal received (e.g. via SIGINT/Ctrl+C), ending Ray Tune run. This will try to checkpoint the experiment state one last time. Press CTRL+C (or send SIGINT/SIGKILL/SIGTERM) to skip. 
+2024-12-28 09:10:36,596	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/home/sn666/ray_results/TorchTrainerMultiObjective_2024-12-28_09-09-36' in 0.0137s.
+[36m(TorchTrainerMultiObjective pid=1863245)[0m Started distributed worker processes: 
+[36m(TorchTrainerMultiObjective pid=1863245)[0m - (node_id=68e9314485d7372d6c6a7dae204243cce5eca5764a93d4157262501b, ip=128.232.119.192, pid=1863408) world_rank=0, local_rank=0, node_rank=0
+[36m(RayTrainWorker pid=1863408)[0m Setting up process group for: env:// [rank=0, world_size=1]
+Is CUDA available: True
+Number of GPUs: 5
+Modes: ['max', 'min']
+Metrics: ['ptl/val_accuracy', 'ptl/model_params']
+train_loop_config:  None
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     TorchTrainerMultiObjective_2024-12-28_09-09-36   │
+├───────────────────────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 SearchGenerator                                  │
+│ Scheduler                        FIFOScheduler                                    │
+│ Number of trials                 25                                               │
+╰───────────────────────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /home/sn666/ray_results/TorchTrainerMultiObjective_2024-12-28_09-09-36
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts`
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.27450337409973147, 'batch_size': 128, 'learning_rate': 0.04822804979383946}
+
+Trial status: 1 PENDING
+Current time: 2024-12-28 09:09:45. Total running time: 0s
+Logical resource usage: 2.0/64 CPUs, 0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────╮
+│ Trial name                            status   │
+├────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_4a70303e   PENDING  │
+╰────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_4a70303e started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_4a70303e config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                               0.2745 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                             128 │
+│ learning_rate                                        0.04823 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.16112914066761733, 'batch_size': 32, 'learning_rate': 0.09916091548465193}
+[36m(TorchTrainerMultiObjective pid=1859851)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.27450337409973147, 'batch_size': 128, 'learning_rate': 0.04822804979383946}
+
+Trial TorchTrainerMultiObjective_4a70303e errored after 0 iterations at 2024-12-28 09:09:55. Total running time: 10s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_4a70303e_1_batch_size=128,dropout=0.2745,layer_1_size=32,layer_2_size=64,layer_3_size=128,learning_rate_2024-12-28_09-09-45/error.txt
+
+Trial TorchTrainerMultiObjective_0c774af3 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_0c774af3 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                32 │
+│ dropout                                              0.16113 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.09916 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.24422999694943429, 'batch_size': 64, 'learning_rate': 0.07440895594656467}
+[36m(TorchTrainerMultiObjective pid=1860018)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.16112914066761733, 'batch_size': 32, 'learning_rate': 0.09916091548465193}
+
+Trial TorchTrainerMultiObjective_0c774af3 errored after 0 iterations at 2024-12-28 09:10:00. Total running time: 15s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_0c774af3_2_batch_size=32,dropout=0.1611,layer_1_size=16,layer_2_size=32,layer_3_size=64,learning_rate=0_2024-12-28_09-09-50/error.txt
+
+Trial TorchTrainerMultiObjective_694361b3 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_694361b3 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                64 │
+│ dropout                                              0.24423 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                             128 │
+│ learning_rate                                        0.07441 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.13280869871377946, 'batch_size': 128, 'learning_rate': 0.022304612486995758}
+[36m(TorchTrainerMultiObjective pid=1860227)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.24422999694943429, 'batch_size': 64, 'learning_rate': 0.07440895594656467}
+
+Trial TorchTrainerMultiObjective_694361b3 errored after 0 iterations at 2024-12-28 09:10:06. Total running time: 20s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_694361b3_3_batch_size=64,dropout=0.2442,layer_1_size=16,layer_2_size=64,layer_3_size=128,learning_rate=_2024-12-28_09-09-56/error.txt
+
+Trial TorchTrainerMultiObjective_29fd3e54 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_29fd3e54 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                              0.13281 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                              64 │
+│ learning_rate                                         0.0223 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.1111916583031416, 'batch_size': 128, 'learning_rate': 0.03477171170497313}
+[36m(TorchTrainerMultiObjective pid=1860641)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.13280869871377946, 'batch_size': 128, 'learning_rate': 0.022304612486995758}
+
+Trial TorchTrainerMultiObjective_29fd3e54 errored after 0 iterations at 2024-12-28 09:10:11. Total running time: 26s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_29fd3e54_4_batch_size=128,dropout=0.1328,layer_1_size=32,layer_2_size=32,layer_3_size=64,learning_rate=_2024-12-28_09-10-01/error.txt
+
+Trial TorchTrainerMultiObjective_e52a3e27 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_e52a3e27 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                              0.11119 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.03477 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 128, 'dropout': 0.22436752803623677, 'batch_size': 32, 'learning_rate': 0.08686081461152062}
+[36m(TorchTrainerMultiObjective pid=1861158)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.1111916583031416, 'batch_size': 128, 'learning_rate': 0.03477171170497313}
+
+Trial status: 4 ERROR | 1 RUNNING | 1 PENDING
+Current time: 2024-12-28 09:10:15. Total running time: 30s
+Logical resource usage: 4.0/64 CPUs, 0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────╮
+│ Trial name                            status   │
+├────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_e52a3e27   RUNNING  │
+│ TorchTrainerMultiObjective_cf1f9756   PENDING  │
+│ TorchTrainerMultiObjective_4a70303e   ERROR    │
+│ TorchTrainerMultiObjective_0c774af3   ERROR    │
+│ TorchTrainerMultiObjective_694361b3   ERROR    │
+│ TorchTrainerMultiObjective_29fd3e54   ERROR    │
+╰────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_e52a3e27 errored after 0 iterations at 2024-12-28 09:10:17. Total running time: 31s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_e52a3e27_5_batch_size=128,dropout=0.1112,layer_1_size=32,layer_2_size=64,layer_3_size=64,learning_rate=_2024-12-28_09-10-06/error.txt
+
+Trial TorchTrainerMultiObjective_cf1f9756 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_cf1f9756 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                32 │
+│ dropout                                              0.22437 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                             128 │
+│ learning_rate                                        0.08686 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.18248065132647753, 'batch_size': 32, 'learning_rate': 0.061717650858592245}
+[36m(TorchTrainerMultiObjective pid=1861688)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 128, 'dropout': 0.22436752803623677, 'batch_size': 32, 'learning_rate': 0.08686081461152062}
+
+Trial TorchTrainerMultiObjective_cf1f9756 errored after 0 iterations at 2024-12-28 09:10:22. Total running time: 37s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_cf1f9756_6_batch_size=32,dropout=0.2244,layer_1_size=16,layer_2_size=32,layer_3_size=128,learning_rate=_2024-12-28_09-10-12/error.txt
+
+Trial TorchTrainerMultiObjective_57cce5c4 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_57cce5c4 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                32 │
+│ dropout                                              0.18248 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.06172 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 128, 'dropout': 0.2944848382845521, 'batch_size': 64, 'learning_rate': 0.010800024418253451}
+[36m(TorchTrainerMultiObjective pid=1862308)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.18248065132647753, 'batch_size': 32, 'learning_rate': 0.061717650858592245}
+
+Trial TorchTrainerMultiObjective_57cce5c4 errored after 0 iterations at 2024-12-28 09:10:27. Total running time: 42s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_57cce5c4_7_batch_size=32,dropout=0.1825,layer_1_size=16,layer_2_size=64,layer_3_size=64,learning_rate=0_2024-12-28_09-10-17/error.txt
+
+Trial TorchTrainerMultiObjective_e9beaf93 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_e9beaf93 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                64 │
+│ dropout                                              0.29448 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                             128 │
+│ learning_rate                                         0.0108 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.2089904909953475, 'batch_size': 32, 'learning_rate': 0.016731936298776416}
+[36m(TorchTrainerMultiObjective pid=1862786)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 128, 'dropout': 0.2944848382845521, 'batch_size': 64, 'learning_rate': 0.010800024418253451}
+
+Trial TorchTrainerMultiObjective_e9beaf93 errored after 0 iterations at 2024-12-28 09:10:33. Total running time: 47s
+Error file: /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_e9beaf93_8_batch_size=64,dropout=0.2945,layer_1_size=32,layer_2_size=32,layer_3_size=128,learning_rate=_2024-12-28_09-10-22/error.txt
+
+Trial TorchTrainerMultiObjective_91fe062c started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_91fe062c config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                32 │
+│ dropout                                              0.20899 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.01673 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 128, 'dropout': 0.12100078146904708, 'batch_size': 64, 'learning_rate': 0.06725018224595115}
+[36m(TorchTrainerMultiObjective pid=1863245)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.2089904909953475, 'batch_size': 32, 'learning_rate': 0.016731936298776416}
+
+Trial status: 8 ERROR | 1 RUNNING | 1 PENDING
+Current time: 2024-12-28 09:10:36. Total running time: 51s
+Logical resource usage: 4.0/64 CPUs, 0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────╮
+│ Trial name                            status   │
+├────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_91fe062c   RUNNING  │
+│ TorchTrainerMultiObjective_2165d355   PENDING  │
+│ TorchTrainerMultiObjective_4a70303e   ERROR    │
+│ TorchTrainerMultiObjective_0c774af3   ERROR    │
+│ TorchTrainerMultiObjective_694361b3   ERROR    │
+│ TorchTrainerMultiObjective_29fd3e54   ERROR    │
+│ TorchTrainerMultiObjective_e52a3e27   ERROR    │
+│ TorchTrainerMultiObjective_cf1f9756   ERROR    │
+│ TorchTrainerMultiObjective_57cce5c4   ERROR    │
+│ TorchTrainerMultiObjective_e9beaf93   ERROR    │
+╰────────────────────────────────────────────────╯
+
+Number of errored trials: 8
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name                              # failures   error file                                                                                                                                                                                                                                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_4a70303e              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_4a70303e_1_batch_size=128,dropout=0.2745,layer_1_size=32,layer_2_size=64,layer_3_size=128,learning_rate_2024-12-28_09-09-45/error.txt │
+│ TorchTrainerMultiObjective_0c774af3              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_0c774af3_2_batch_size=32,dropout=0.1611,layer_1_size=16,layer_2_size=32,layer_3_size=64,learning_rate=0_2024-12-28_09-09-50/error.txt │
+│ TorchTrainerMultiObjective_694361b3              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_694361b3_3_batch_size=64,dropout=0.2442,layer_1_size=16,layer_2_size=64,layer_3_size=128,learning_rate=_2024-12-28_09-09-56/error.txt │
+│ TorchTrainerMultiObjective_29fd3e54              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_29fd3e54_4_batch_size=128,dropout=0.1328,layer_1_size=32,layer_2_size=32,layer_3_size=64,learning_rate=_2024-12-28_09-10-01/error.txt │
+│ TorchTrainerMultiObjective_e52a3e27              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_e52a3e27_5_batch_size=128,dropout=0.1112,layer_1_size=32,layer_2_size=64,layer_3_size=64,learning_rate=_2024-12-28_09-10-06/error.txt │
+│ TorchTrainerMultiObjective_cf1f9756              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_cf1f9756_6_batch_size=32,dropout=0.2244,layer_1_size=16,layer_2_size=32,layer_3_size=128,learning_rate=_2024-12-28_09-10-12/error.txt │
+│ TorchTrainerMultiObjective_57cce5c4              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_57cce5c4_7_batch_size=32,dropout=0.1825,layer_1_size=16,layer_2_size=64,layer_3_size=64,learning_rate=0_2024-12-28_09-10-17/error.txt │
+│ TorchTrainerMultiObjective_e9beaf93              1   /tmp/ray/session_2024-12-28_09-09-37_015330_1855668/artifacts/2024-12-28_09-09-45/TorchTrainerMultiObjective_2024-12-28_09-09-36/driver_artifacts/TorchTrainerMultiObjective_e9beaf93_8_batch_size=64,dropout=0.2945,layer_1_size=32,layer_2_size=32,layer_3_size=128,learning_rate=_2024-12-28_09-10-22/error.txt │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Signal received, terminating...
+Exception ignored in atexit callback: <function shutdown at 0x7b77c0b22e80>
+Traceback (most recent call last):
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/worker.py", line 1913, in shutdown
+    _global_node.kill_all_processes(check_alive=False, allow_graceful=True)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/node.py", line 1645, in kill_all_processes
+    self._kill_process_type(
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/node.py", line 1458, in _kill_process_type
+    self._kill_process_impl(
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/site-packages/ray/_private/node.py", line 1514, in _kill_process_impl
+    process.wait(timeout_seconds)
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sn666/.conda/envs/lsdp/lib/python3.11/subprocess.py", line 2047, in _wait
+    time.sleep(delay)
+  File "/home/sn666/large-scale-data-processing/miniproject/ax_multiobjective.py", line 49, in handle_sigint
+    sys.exit(0)
+SystemExit: 0
+Signal received, terminating...
