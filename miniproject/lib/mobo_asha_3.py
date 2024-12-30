@@ -73,7 +73,7 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
         #     [-1 if v == "max" else 1 for v in objectives.values()]
         # )
         # TODO: JUST CHANGED, UNTESTED
-        self.sign_vector = prepare_sign_vector(objectives)
+        self.sign_vector = -prepare_sign_vector(objectives)
 
         self.brackets = []
         self.trial_info = {}
@@ -162,6 +162,7 @@ class MultiObjectiveBracket:
             return None
 
         points = np.array(list(recorded.values()))
+        print(points)
         if self.strategy == EPS_NET:
             return self._eps_net(points)
         elif self.strategy == NSGA_II:
