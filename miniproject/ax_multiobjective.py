@@ -25,7 +25,8 @@ import logging
 from ray.train import RunConfig, ScalingConfig, CheckpointConfig
 from ray.tune import TuneConfig, Tuner
 from lib.ax_torchtrainer import TorchTrainerMultiObjective
-from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
+# from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
+from lib.mobo_asha import MultiObjectiveAsyncHyperBandScheduler
 import pickle
 from ax.service.utils.report_utils import _pareto_frontier_scatter_2d_plotly
 import json
@@ -268,6 +269,13 @@ if __name__ == "__main__":
         help="If set to True, uses the MO-ASHA scheduler",
     )
     argparser.add_argument(
+        "--scheduler_strategy",
+        type=str,
+        default="eps_net",
+        choices=["eps_net", "nsga_ii"],
+        help="Strategy to use for the scheduler",
+    )
+    argparser.add_argument(
         "--scheduler_max_t",
         type=int,
         default=2,
@@ -392,7 +400,8 @@ if __name__ == "__main__":
             max_t=args.scheduler_max_t, 
             objectives=general_objectives, 
             grace_period=args.scheduler_grace_period, 
-            reduction_factor=args.scheduler_reduction_factor
+            reduction_factor=args.scheduler_reduction_factor,
+            strategy=args.scheduler_strategy
         )
 
         tune_config.scheduler = scheduler
