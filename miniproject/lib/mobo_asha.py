@@ -110,6 +110,9 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
         if self.time_attr not in result or not all(obj in result for obj in self.objectives):
             return action
     
+        if result[self.time_attr] >= self.max_t:
+            action = TrialScheduler.STOP
+    
         resource = result[self.time_attr]
         
         # multiply by sign vector to standardise to max-oriented
