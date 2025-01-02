@@ -222,6 +222,8 @@ class MultiObjectiveBracket:
             if candidates is not None and not self._is_promotable(metrics, candidates):
                 print(f"[Rung={rung['level']}] Trial {trial.trial_id} is dominated. -> STOP")
                 action = TrialScheduler.STOP
+            else:
+                print(f"[Rung={rung['level']}] Trial {trial.trial_id} is not dominated. -> CONTINUE")
             
             # record the trial in the rung
             recorded[trial.trial_id] = metrics

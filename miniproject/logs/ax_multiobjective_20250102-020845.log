@@ -1,0 +1,257 @@
+Is CUDA available: True
+Number of GPUs: 5
+Running optimisation with args: Namespace(num_samples=25, max_num_epochs=8, num_gpus=None, objective_1='ptl/val_accuracy', objective_1_type='max', objective_1_threshold=0.9, objective_2='ptl/model_params', objective_2_type='min', objective_2_threshold=100000.0, objective_3=None, objective_3_type=None, objective_3_threshold=None, max_concurrent=10, use_scheduler=True, scheduler_strategy='nsga_ii', scheduler_max_t=4, scheduler_grace_period=1, scheduler_reduction_factor=3, accelerator='gpu', use_scaling_config=True, data_path='/home/sn666/large-scale-data-processing/miniproject/data', remark='8e/moasha-nsga/maxt4red3/maxaccminparam')
+Using 2 Objectives: {'ptl/val_accuracy': ObjectiveProperties(minimize=False, threshold=0.9), 'ptl/model_params': ObjectiveProperties(minimize=True, threshold=100000.0)}
+Modes: ['max', 'min']
+Metrics: ['ptl/val_accuracy', 'ptl/model_params']
+Limiting concurrent trials to 10
+Run config: RunConfig(storage_path='/home/sn666/ray_results', checkpoint_config=CheckpointConfig(num_to_keep=2, checkpoint_score_attribute='ptl/val_accuracy'), verbose=1)
+Rungs: [{'level': 1, 'recorded': {}}, {'level': 3, 'recorded': {}}]
+Using MO-ASHA scheduler: <lib.mobo_asha.MultiObjectiveAsyncHyperBandScheduler object at 0x7eb0b3d43710>
+Tune config: TuneConfig(mode=None, metric=None, search_alg=<ray.tune.search.concurrency_limiter.ConcurrencyLimiter object at 0x7eb0b3129610>, scheduler=<lib.mobo_asha.MultiObjectiveAsyncHyperBandScheduler object at 0x7eb0b3d43710>, num_samples=25, max_concurrent_trials=None, time_budget_s=None, reuse_actors=False, trial_name_creator=None, trial_dirname_creator=None, chdir_to_trial_dir='DEPRECATED')
+Scaling config: ScalingConfig(num_workers=3, use_gpu=True, resources_per_worker={'CPU': 1, 'GPU': 1})
+train_loop_config:  None
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     TorchTrainerMultiObjective_2025-01-02_02-08-50   │
+├───────────────────────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 SearchGenerator                                  │
+│ Scheduler                        MultiObjectiveAsyncHyperBandScheduler            │
+│ Number of trials                 25                                               │
+╰───────────────────────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /home/sn666/ray_results/TorchTrainerMultiObjective_2025-01-02_02-08-50
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2025-01-02_02-08-50_999568_3427632/artifacts/2025-01-02_02-08-54/TorchTrainerMultiObjective_2025-01-02_02-08-50/driver_artifacts`
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.2863654375076294, 'batch_size': 128, 'learning_rate': 0.09184581288695336}
+
+Trial status: 1 PENDING
+Current time: 2025-01-02 02:08:55. Total running time: 0s
+Logical resource usage: 4.0/64 CPUs, 3.0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────╮
+│ Trial name                            status   │
+├────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_dd02361a   PENDING  │
+╰────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_dd02361a started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_dd02361a config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                              0.28637 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                             128 │
+│ learning_rate                                        0.09185 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.17523476276546718, 'batch_size': 64, 'learning_rate': 0.033558024038933223}
+[36m(TorchTrainerMultiObjective pid=3431702)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.2863654375076294, 'batch_size': 128, 'learning_rate': 0.09184581288695336}
+[36m(RayTrainWorker pid=3431943)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.2863654375076294, 'batch_size': 128, 'learning_rate': 0.09184581288695336}
+[36m(RayTrainWorker pid=3431943)[0m Model parameters: 23258
+[36m(RayTrainWorker pid=3431943)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3431943)[0m Using cached MNIST dataset...
+Time taken for on_result: 1.9073486328125e-05
+Time taken for on_result: 2.86102294921875e-06
+Time taken for on_result: 3.814697265625e-06
+Time taken for on_result: 4.5299530029296875e-06
+Time taken for on_result: 3.337860107421875e-06
+Time taken for on_result: 2.86102294921875e-06
+Time taken for on_result: 2.384185791015625e-06
+Time taken for on_result: 2.86102294921875e-06
+Time taken for on_result: 2.6226043701171875e-06
+Result: {'ptl/train_loss': 2.307729482650757, 'ptl/train_accuracy': 0.06666667014360428, 'ptl/val_loss': 2.3066558837890625, 'ptl/val_accuracy': 0.1107390969991684, 'ptl/model_params': 23258.0, 'epoch': 7, 'step': 1152, 'timestamp': 1735783760, 'checkpoint_dir_name': 'checkpoint_000007', 'should_checkpoint': True, 'done': True, 'training_iteration': 8, 'trial_id': 'dd02361a', 'date': '2025-01-02_02-09-20', 'time_this_iter_s': 1.5885536670684814, 'time_total_s': 20.095124006271362, 'pid': 3431702, 'hostname': 'gxp-l4-0', 'node_ip': '128.232.119.192', 'time_since_restore': 20.095124006271362, 'iterations_since_restore': 8, 'experiment_tag': '1_batch_size=128,dropout=0.2864,layer_1_size=16,layer_2_size=64,layer_3_size=128,learning_rate=0.0918', 'config/layer_1_size': 16, 'config/layer_2_size': 64, 'config/layer_3_size': 128, 'config/dropout': 0.2863654375076294, 'config/batch_size': 128, 'config/learning_rate': 0.09184581288695336}
+Metrics to include: ['ptl/val_accuracy', 'ptl/model_params']
+Metric dict after trial: {'ptl/val_accuracy': (0.1107390969991684, None), 'ptl/model_params': (23258.0, None)}
+
+Trial TorchTrainerMultiObjective_dd02361a completed after 8 iterations at 2025-01-02 02:09:22. Total running time: 27s
+╭────────────────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_dd02361a result                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ checkpoint_dir_name                                  checkpoint_000007 │
+│ time_this_iter_s                                               1.58855 │
+│ time_total_s                                                  20.09512 │
+│ training_iteration                                                   8 │
+│ epoch                                                                7 │
+│ ptl/model_params                                                23258. │
+│ ptl/train_accuracy                                             0.06667 │
+│ ptl/train_loss                                                 2.30773 │
+│ ptl/val_accuracy                                               0.11074 │
+│ ptl/val_loss                                                   2.30666 │
+│ step                                                              1152 │
+╰────────────────────────────────────────────────────────────────────────╯
+
+Trial status: 1 TERMINATED | 1 PENDING
+Current time: 2025-01-02 02:09:25. Total running time: 30s
+Logical resource usage: 4.0/64 CPUs, 3.0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name                            status         iter     total time (s)     ptl/train_loss     ptl/train_accuracy     ptl/val_loss     ptl/val_accuracy │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_dd02361a   TERMINATED        8            20.0951            2.30773              0.0666667          2.30666             0.110739 │
+│ TorchTrainerMultiObjective_3868d044   PENDING                                                                                                                │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_3868d044 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_3868d044 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                64 │
+│ dropout                                              0.17523 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.03356 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.22222748808562753, 'batch_size': 64, 'learning_rate': 0.017710310991015284}
+[36m(TorchTrainerMultiObjective pid=3445779)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.17523476276546718, 'batch_size': 64, 'learning_rate': 0.033558024038933223}
+[36m(RayTrainWorker pid=3431941)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.2863654375076294, 'batch_size': 128, 'learning_rate': 0.09184581288695336}[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3431941)[0m Model parameters: 23258[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3431941)[0m Using accelerator: gpu[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3431942)[0m Using cached MNIST dataset...[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3445875)[0m printing config, {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.17523476276546718, 'batch_size': 64, 'learning_rate': 0.033558024038933223}
+[36m(RayTrainWorker pid=3445875)[0m Model parameters: 28938
+[36m(RayTrainWorker pid=3445875)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3445877)[0m printing config, {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.17523476276546718, 'batch_size': 64, 'learning_rate': 0.033558024038933223}
+[36m(RayTrainWorker pid=3445877)[0m Model parameters: 28938
+[36m(RayTrainWorker pid=3445877)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3445875)[0m Using cached MNIST dataset...
+Non-dominated points (outer function): [[ 8.92857239e-02 -2.32580000e+04]]
+Fronts: [[0]]
+Crowding distance: [inf]
+New metrics: [ 8.08899224e-01 -2.89380000e+04]
+Candidates: [[ 8.92857239e-02 -2.32580000e+04]
+ [ 8.08899224e-01 -2.89380000e+04]]
+Fronts: [[0, 1]]
+Crowding distance: [inf inf]
+Not enough to promote: [ 8.08899224e-01 -2.89380000e+04] not in top 0
+[Rung=1] Trial 3868d044 is dominated. -> STOP
+Time taken for on_result: 0.0009701251983642578
+Time taken for on_result: 1.9073486328125e-06
+Result: {'ptl/train_loss': 0.956062376499176, 'ptl/train_accuracy': 0.6333333253860474, 'ptl/val_loss': 0.6777913570404053, 'ptl/val_accuracy': 0.8088992238044739, 'ptl/model_params': 28938.0, 'epoch': 0, 'step': 287, 'timestamp': 1735783777, 'checkpoint_dir_name': 'checkpoint_000000', 'should_checkpoint': True, 'done': True, 'training_iteration': 1, 'trial_id': '3868d044', 'date': '2025-01-02_02-09-37', 'time_this_iter_s': 9.54578971862793, 'time_total_s': 9.54578971862793, 'pid': 3445779, 'hostname': 'gxp-l4-0', 'node_ip': '128.232.119.192', 'time_since_restore': 9.54578971862793, 'iterations_since_restore': 1, 'experiment_tag': '2_batch_size=64,dropout=0.1752,layer_1_size=32,layer_2_size=32,layer_3_size=64,learning_rate=0.0336', 'config/layer_1_size': 32, 'config/layer_2_size': 32, 'config/layer_3_size': 64, 'config/dropout': 0.17523476276546718, 'config/batch_size': 64, 'config/learning_rate': 0.033558024038933223}
+Metrics to include: ['ptl/val_accuracy', 'ptl/model_params']
+Metric dict after trial: {'ptl/val_accuracy': (0.8088992238044739, None), 'ptl/model_params': (28938.0, None)}
+
+Trial TorchTrainerMultiObjective_3868d044 completed after 1 iterations at 2025-01-02 02:09:37. Total running time: 43s
+╭────────────────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_3868d044 result                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ checkpoint_dir_name                                  checkpoint_000000 │
+│ time_this_iter_s                                               9.54579 │
+│ time_total_s                                                   9.54579 │
+│ training_iteration                                                   1 │
+│ epoch                                                                0 │
+│ ptl/model_params                                                28938. │
+│ ptl/train_accuracy                                             0.63333 │
+│ ptl/train_loss                                                 0.95606 │
+│ ptl/val_accuracy                                                0.8089 │
+│ ptl/val_loss                                                   0.67779 │
+│ step                                                               287 │
+╰────────────────────────────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_18df19e4 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_18df19e4 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                                64 │
+│ dropout                                              0.22223 │
+│ layer_1_size                                              32 │
+│ layer_2_size                                              64 │
+│ layer_3_size                                             128 │
+│ learning_rate                                        0.01771 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.11460980884730816, 'batch_size': 128, 'learning_rate': 0.05767007201071829}
+[36m(TorchTrainerMultiObjective pid=3448939)[0m train_loop_config:  {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.22222748808562753, 'batch_size': 64, 'learning_rate': 0.017710310991015284}
+[36m(RayTrainWorker pid=3445876)[0m printing config, {'layer_1_size': 32, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.17523476276546718, 'batch_size': 64, 'learning_rate': 0.033558024038933223}
+[36m(RayTrainWorker pid=3445876)[0m Model parameters: 28938
+[36m(RayTrainWorker pid=3445876)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3445877)[0m Using cached MNIST dataset...[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3449294)[0m printing config, {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.22222748808562753, 'batch_size': 64, 'learning_rate': 0.017710310991015284}
+[36m(RayTrainWorker pid=3449294)[0m Model parameters: 36842
+[36m(RayTrainWorker pid=3449294)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3449294)[0m Using cached MNIST dataset...
+Non-dominated points (outer function): [[ 8.92857239e-02 -2.32580000e+04]
+ [ 8.08899224e-01 -2.89380000e+04]]
+Fronts: [[0, 1]]
+Crowding distance: [inf inf]
+New metrics: [ 8.85159492e-01 -3.68420000e+04]
+Candidates: [[ 8.92857239e-02 -2.32580000e+04]
+ [ 8.08899224e-01 -2.89380000e+04]
+ [ 8.85159492e-01 -3.68420000e+04]]
+Fronts: [[0, 1, 2]]
+Crowding distance: [inf  2. inf]
+Not enough to promote: [ 8.85159492e-01 -3.68420000e+04] not in top 0
+[Rung=1] Trial 18df19e4 is dominated. -> STOP
+Time taken for on_result: 0.0014853477478027344
+Time taken for on_result: 2.384185791015625e-06
+Result: {'ptl/train_loss': 0.6175501346588135, 'ptl/train_accuracy': 0.800000011920929, 'ptl/val_loss': 0.4245559871196747, 'ptl/val_accuracy': 0.8851594924926758, 'ptl/model_params': 36842.0, 'epoch': 0, 'step': 287, 'timestamp': 1735783792, 'checkpoint_dir_name': 'checkpoint_000000', 'should_checkpoint': True, 'done': True, 'training_iteration': 1, 'trial_id': '18df19e4', 'date': '2025-01-02_02-09-52', 'time_this_iter_s': 9.723831415176392, 'time_total_s': 9.723831415176392, 'pid': 3448939, 'hostname': 'gxp-l4-0', 'node_ip': '128.232.119.192', 'time_since_restore': 9.723831415176392, 'iterations_since_restore': 1, 'experiment_tag': '3_batch_size=64,dropout=0.2222,layer_1_size=32,layer_2_size=64,layer_3_size=128,learning_rate=0.0177', 'config/layer_1_size': 32, 'config/layer_2_size': 64, 'config/layer_3_size': 128, 'config/dropout': 0.22222748808562753, 'config/batch_size': 64, 'config/learning_rate': 0.017710310991015284}
+Metrics to include: ['ptl/val_accuracy', 'ptl/model_params']
+Metric dict after trial: {'ptl/val_accuracy': (0.8851594924926758, None), 'ptl/model_params': (36842.0, None)}
+
+Trial TorchTrainerMultiObjective_18df19e4 completed after 1 iterations at 2025-01-02 02:09:52. Total running time: 57s
+╭────────────────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_18df19e4 result                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ checkpoint_dir_name                                  checkpoint_000000 │
+│ time_this_iter_s                                               9.72383 │
+│ time_total_s                                                   9.72383 │
+│ training_iteration                                                   1 │
+│ epoch                                                                0 │
+│ ptl/model_params                                                36842. │
+│ ptl/train_accuracy                                                 0.8 │
+│ ptl/train_loss                                                 0.61755 │
+│ ptl/val_accuracy                                               0.88516 │
+│ ptl/val_loss                                                   0.42456 │
+│ step                                                               287 │
+╰────────────────────────────────────────────────────────────────────────╯
+
+Trial status: 3 TERMINATED | 1 PENDING
+Current time: 2025-01-02 02:09:55. Total running time: 1min 0s
+Logical resource usage: 4.0/64 CPUs, 3.0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name                            status         iter     total time (s)     ptl/train_loss     ptl/train_accuracy     ptl/val_loss     ptl/val_accuracy │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_dd02361a   TERMINATED        8           20.0951            2.30773               0.0666667         2.30666              0.110739 │
+│ TorchTrainerMultiObjective_3868d044   TERMINATED        1            9.54579           0.956062              0.633333          0.677791             0.808899 │
+│ TorchTrainerMultiObjective_18df19e4   TERMINATED        1            9.72383           0.61755               0.8               0.424556             0.885159 │
+│ TorchTrainerMultiObjective_15754d79   PENDING                                                                                                                │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_15754d79 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_15754d79 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                              0.11461 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.05767 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 64, 'layer_3_size': 64, 'dropout': 0.14415490981191398, 'batch_size': 128, 'learning_rate': 0.07673989138733596}
+[36m(TorchTrainerMultiObjective pid=3452674)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.11460980884730816, 'batch_size': 128, 'learning_rate': 0.05767007201071829}
+[36m(RayTrainWorker pid=3449293)[0m printing config, {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.22222748808562753, 'batch_size': 64, 'learning_rate': 0.017710310991015284}[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3449293)[0m Model parameters: 36842[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3449293)[0m Using accelerator: gpu[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3449292)[0m Using cached MNIST dataset...[32m [repeated 2x across cluster][0m
+[36m(RayTrainWorker pid=3452766)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.11460980884730816, 'batch_size': 128, 'learning_rate': 0.05767007201071829}
+[36m(RayTrainWorker pid=3452766)[0m Model parameters: 15866
+[36m(RayTrainWorker pid=3452766)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3452767)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.11460980884730816, 'batch_size': 128, 'learning_rate': 0.05767007201071829}
+[36m(RayTrainWorker pid=3452767)[0m Model parameters: 15866
+[36m(RayTrainWorker pid=3452767)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3452767)[0m Using cached MNIST dataset...
+Non-dominated points (outer function): [[ 8.92857239e-02 -2.32580000e+04]
+ [ 8.08899224e-01 -2.89380000e+04]
+ [ 8.85159492e-01 -3.68420000e+04]]
+Fronts: [[0, 1, 2]]
+Crowding distance: [inf  2. inf]
+New metrics: [ 5.28397858e-01 -1.58660010e+04]
+Candidates: [[ 8.92857239e-02 -2.32580000e+04]
+ [ 8.85159492e-01 -3.68420000e+04]
+ [ 8.08899224e-01 -2.89380000e+04]
+ [ 5.28397858e-01 -1.58660010e+04]]
+Fronts: [[1, 2, 3]]
+Crowding distance: [inf  2. inf]
+
+[36m(RayTrainWorker pid=3452765)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.11460980884730816, 'batch_size': 128, 'learning_rate': 0.05767007201071829}
+[36m(RayTrainWorker pid=3452765)[0m Model parameters: 15866
+[36m(RayTrainWorker pid=3452765)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=3452765)[0m Using cached MNIST dataset...[32m [repeated 2x across cluster][0m

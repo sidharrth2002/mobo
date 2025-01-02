@@ -1,0 +1,64 @@
+Is CUDA available: True
+Number of GPUs: 5
+Running optimisation with args: Namespace(num_samples=25, max_num_epochs=8, num_gpus=None, objective_1='ptl/val_accuracy', objective_1_type='max', objective_1_threshold=0.9, objective_2='ptl/val_loss', objective_2_type='min', objective_2_threshold=0.5, objective_3=None, objective_3_type=None, objective_3_threshold=None, max_concurrent=10, use_scheduler=True, scheduler_strategy='nsga_ii', scheduler_max_t=4, scheduler_grace_period=1, scheduler_reduction_factor=3, accelerator='gpu', use_scaling_config=True, data_path='/home/sn666/large-scale-data-processing/miniproject/data', remark='8e/moasha-nsga/maxt4red3/maxaccminloss')
+Using 2 Objectives: {'ptl/val_accuracy': ObjectiveProperties(minimize=False, threshold=0.9), 'ptl/val_loss': ObjectiveProperties(minimize=True, threshold=0.5)}
+Modes: ['max', 'min']
+Metrics: ['ptl/val_accuracy', 'ptl/val_loss']
+Limiting concurrent trials to 10
+Run config: RunConfig(storage_path='/home/sn666/ray_results', checkpoint_config=CheckpointConfig(num_to_keep=2, checkpoint_score_attribute='ptl/val_accuracy'), verbose=1)
+Rungs: [{'level': 1, 'recorded': {}}, {'level': 3, 'recorded': {}}]
+Using MO-ASHA scheduler: <lib.mobo_asha.MultiObjectiveAsyncHyperBandScheduler object at 0x77cf0eceb690>
+Tune config: TuneConfig(mode=None, metric=None, search_alg=<ray.tune.search.concurrency_limiter.ConcurrencyLimiter object at 0x77cf0f598e10>, scheduler=<lib.mobo_asha.MultiObjectiveAsyncHyperBandScheduler object at 0x77cf0eceb690>, num_samples=25, max_concurrent_trials=None, time_budget_s=None, reuse_actors=False, trial_name_creator=None, trial_dirname_creator=None, chdir_to_trial_dir='DEPRECATED')
+Scaling config: ScalingConfig(num_workers=3, use_gpu=True, resources_per_worker={'CPU': 1, 'GPU': 1})
+train_loop_config:  None
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     TorchTrainerMultiObjective_2024-12-31_13-36-19   │
+├───────────────────────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 SearchGenerator                                  │
+│ Scheduler                        MultiObjectiveAsyncHyperBandScheduler            │
+│ Number of trials                 25                                               │
+╰───────────────────────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /home/sn666/ray_results/TorchTrainerMultiObjective_2024-12-31_13-36-19
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-12-31_13-36-19_102834_849637/artifacts/2024-12-31_13-36-23/TorchTrainerMultiObjective_2024-12-31_13-36-19/driver_artifacts`
+Suggested config: {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.28618857860565183, 'batch_size': 128, 'learning_rate': 0.018162251053750515}
+
+Trial status: 1 PENDING
+Current time: 2024-12-31 13:36:24. Total running time: 0s
+Logical resource usage: 0/64 CPUs, 0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────╮
+│ Trial name                            status   │
+├────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_00bec024   PENDING  │
+╰────────────────────────────────────────────────╯
+
+Trial TorchTrainerMultiObjective_00bec024 started with configuration:
+╭──────────────────────────────────────────────────────────────╮
+│ Trial TorchTrainerMultiObjective_00bec024 config             │
+├──────────────────────────────────────────────────────────────┤
+│ batch_size                                               128 │
+│ dropout                                              0.28619 │
+│ layer_1_size                                              16 │
+│ layer_2_size                                              32 │
+│ layer_3_size                                              64 │
+│ learning_rate                                        0.01816 │
+╰──────────────────────────────────────────────────────────────╯
+Suggested config: {'layer_1_size': 32, 'layer_2_size': 64, 'layer_3_size': 128, 'dropout': 0.17092235628515481, 'batch_size': 64, 'learning_rate': 0.08717799122296274}
+[36m(TorchTrainerMultiObjective pid=853822)[0m train_loop_config:  {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.28618857860565183, 'batch_size': 128, 'learning_rate': 0.018162251053750515}
+[36m(RayTrainWorker pid=854190)[0m printing config, {'layer_1_size': 16, 'layer_2_size': 32, 'layer_3_size': 64, 'dropout': 0.28618857860565183, 'batch_size': 128, 'learning_rate': 0.018162251053750515}
+[36m(RayTrainWorker pid=854190)[0m Model parameters: 15866
+[36m(RayTrainWorker pid=854190)[0m Using accelerator: gpu
+[36m(RayTrainWorker pid=854190)[0m Using cached MNIST dataset...
+Time taken for on_result: 4.76837158203125e-06
+Time taken for on_result: 2.6226043701171875e-06
+Time taken for on_result: 5.0067901611328125e-06
+
+Trial status: 1 RUNNING | 1 PENDING
+Current time: 2024-12-31 13:36:54. Total running time: 30s
+Logical resource usage: 4.0/64 CPUs, 3.0/5 GPUs (0.0/1.0 accelerator_type:L4)
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name                            status       iter     total time (s)     ptl/train_loss     ptl/train_accuracy     ptl/val_loss     ptl/val_accuracy │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ TorchTrainerMultiObjective_00bec024   RUNNING         3            22.1115            1.22204               0.566667         0.522299               0.8422 │
+│ TorchTrainerMultiObjective_1b0fe046   PENDING                                                                                                              │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
