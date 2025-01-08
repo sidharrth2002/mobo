@@ -26,8 +26,8 @@ from ray.train import RunConfig, ScalingConfig, CheckpointConfig
 from ray.tune import TuneConfig, Tuner
 from lib.ax_torchtrainer import TorchTrainerMultiObjective
 # from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
-# from lib.mobo_asha_6 import MultiObjectiveAsyncHyperBandScheduler
-from lib.mobo_asha import MultiObjectiveAsyncHyperBandScheduler
+from lib.mobo_asha_6 import MultiObjectiveAsyncHyperBandScheduler
+# from lib.mobo_asha import MultiObjectiveAsyncHyperBandScheduler
 
 import pickle
 from ax.service.utils.report_utils import _pareto_frontier_scatter_2d_plotly
@@ -409,7 +409,7 @@ if __name__ == "__main__":
             objectives=general_objectives, 
             grace_period=args.scheduler_grace_period, 
             reduction_factor=args.scheduler_reduction_factor,
-            strategy=args.scheduler_strategy
+            # strategy=args.scheduler_strategy
         )
 
         tune_config.scheduler = scheduler
@@ -517,6 +517,12 @@ if __name__ == "__main__":
     pareto = _pareto_frontier_scatter_2d_plotly(ax_client.experiment)
     pareto.write_image(f"{args.results_folder}/{configuration_hash}/pareto.png")
     pareto.write_html(f"{args.results_folder}/{configuration_hash}/pareto.html")
+
+    # print the hypervolume
+    print(f"Hyper-volume: {ax_client.get_hypervolume()}")
+
+    # print the number of pareto-optimal solutions
+    print(f"{len(ax_client.get_pareto_optimal_parameters())} pareto-optimal points: {ax_client.get_pareto_optimal_parameters()}")
 
     # save cv surrogate model
     # print(f"Saving CV surrogate model for configuration: {configuration_hash}")
