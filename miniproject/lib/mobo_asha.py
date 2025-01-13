@@ -110,6 +110,9 @@ class MultiObjectiveAsyncHyperBandScheduler(FIFOScheduler):
         if self.time_attr not in result or not all(obj in result for obj in self.objectives):
             return action
     
+        if result[self.time_attr] >= self.max_t:
+            action = TrialScheduler.STOP
+    
         resource = result[self.time_attr]
         
         # multiply by sign vector to standardise to max-oriented
@@ -222,6 +225,8 @@ class MultiObjectiveBracket:
             if candidates is not None and not self._is_promotable(metrics, candidates):
                 print(f"[Rung={rung['level']}] Trial {trial.trial_id} is dominated. -> STOP")
                 action = TrialScheduler.STOP
+            else:
+                print(f"[Rung={rung['level']}] Trial {trial.trial_id} is not dominated. -> CONTINUE")
             
             # record the trial in the rung
             recorded[trial.trial_id] = metrics
@@ -291,7 +296,7 @@ class MultiObjectiveBracket:
             if not mask[i]:
                 continue
             for j in range(n):
-                if i == k or not mask[j]:
+                if i == j or not mask[j]:
                     continue
                 
                 if (np.all(points[i] >= points[j]) and np.any(points[i] > points[j])):
@@ -336,7 +341,7 @@ class MultiObjectiveBracket:
             return None
         
         # use fast dominated sort to 
-        fronts = self._fast_dominated_sort(points)
+        fronts = self._fast_nondominated_sort(points)
         result_indices = []
         for front in fronts:
             # crowding distance for that front
@@ -376,6 +381,7 @@ class MultiObjectiveBracket:
                 
         # BFS expansion, pick front k, reduce dom_counts of those they dominate
         i = 0
+        print(f"Fronts: {fronts}")
         while len(fronts[i]) > 0:
             next_front = []
             for idx in fronts[i]:
@@ -384,7 +390,8 @@ class MultiObjectiveBracket:
                     if domination_counts[d_idx] == 0:
                         next_front.append(d_idx)
             i += 1
-        
+            fronts.append(next_front)
+                
         return fronts[:-1]
 
     def _crowding_distance(self, points):

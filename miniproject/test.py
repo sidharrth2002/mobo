@@ -1,18 +1,10 @@
-import argparse
+import numpy as np
 
-# Create an ArgumentParser object
-parser = argparse.ArgumentParser(description="Example script")
+arr1 = np.array([ 1.02752067, -1.58660010])
+arr2 = np.array([[ 8.39285791, -2.89380000],
+ [ 1.02752067, -1.58660010],
+ [ 2.09812254, -2.32580000]])
 
-# Add some arguments
-parser.add_argument("--arg1", type=int, help="An integer argument", default=42)
-parser.add_argument("--arg2", type=str, help="A string argument", default="Hello")
-parser.add_argument("--flag", action=argparse.BooleanOptionalAction, help="A boolean flag")
-
-# Parse the arguments
-args = parser.parse_args()
-
-# Convert the Namespace object to a dictionary
-args_dict = vars(args)
-
-# Print the dictionary
-print(args_dict)
+print(arr1)
+print(arr2)
+print(arr1 in arr2)

@@ -25,7 +25,10 @@ import logging
 from ray.train import RunConfig, ScalingConfig, CheckpointConfig
 from ray.tune import TuneConfig, Tuner
 from lib.ax_torchtrainer import TorchTrainerMultiObjective
-from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
+# from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
+from lib.mobo_asha_6 import MultiObjectiveAsyncHyperBandScheduler
+# from lib.mobo_asha import MultiObjectiveAsyncHyperBandScheduler
+
 import pickle
 from ax.service.utils.report_utils import _pareto_frontier_scatter_2d_plotly
 import json
@@ -268,6 +271,13 @@ if __name__ == "__main__":
         help="If set to True, uses the MO-ASHA scheduler",
     )
     argparser.add_argument(
+        "--scheduler_strategy",
+        type=str,
+        default="eps_net",
+        choices=["eps_net", "nsga_ii"],
+        help="Strategy to use for the scheduler",
+    )
+    argparser.add_argument(
         "--scheduler_max_t",
         type=int,
         default=2,
@@ -309,6 +319,12 @@ if __name__ == "__main__":
         type=str,
         default="",
         help="Note to save with the results to identify this run later"
+    )
+    argparser.add_argument(
+        "--results_folder",
+        type=str,
+        default="results",
+        help="Folder to store the results"
     )
 
     args = argparser.parse_args()
@@ -366,7 +382,7 @@ if __name__ == "__main__":
             {"name": "layer_3_size", "type": "choice", "values": [64, 128]},
             {"name": "dropout", "type": "range", "bounds": [0.1, 0.3]},
             {"name": "batch_size", "type": "choice", "values": [64, 128]},
-            {"name": "learning_rate", "type": "range", "bounds": [1e-4, 1e-1]},
+            {"name": "learning_rate", "type": "range", "bounds": [1e-4, 1e-1], "log_scale": True},
         ],
         objectives=ax_client_objectives,
     )
@@ -392,7 +408,8 @@ if __name__ == "__main__":
             max_t=args.scheduler_max_t, 
             objectives=general_objectives, 
             grace_period=args.scheduler_grace_period, 
-            reduction_factor=args.scheduler_reduction_factor
+            reduction_factor=args.scheduler_reduction_factor,
+            # strategy=args.scheduler_strategy
         )
 
         tune_config.scheduler = scheduler
@@ -433,6 +450,9 @@ if __name__ == "__main__":
         )
 
         trainer = prepare_trainer(trainer)
+        
+        print(f"Model: {model}")
+        
         trainer.fit(model, datamodule=data_module)
 
     if args.use_scaling_config:
@@ -469,42 +489,48 @@ if __name__ == "__main__":
     # create a folder in results directory
     print(f"Creating a folder for configuration: {configuration_hash}")
 
-    os.makedirs(f"results/{configuration_hash}", exist_ok=True)
+    os.makedirs(f"{args.results_folder}/{configuration_hash}", exist_ok=True)
 
     print(f"Configuration hash: {configuration_hash}")
 
     # save args used in this run
-    with open(f"results/{configuration_hash}/args.json", "w") as f:
+    with open(f"{args.results_folder}/{configuration_hash}/args.json", "w") as f:
         json.dump(vars(args), f)
 
     # save ax client
-    ax_client.save_to_json_file(f"results/{configuration_hash}/ax_client.json")
+    ax_client.save_to_json_file(f"{args.results_folder}/{configuration_hash}/ax_client.json")
 
     # save tuning results
     tuning_results.get_dataframe().to_csv(
-        f"results/{configuration_hash}/tuning_results_df.csv"
+        f"{args.results_folder}/{configuration_hash}/tuning_results_df.csv"
     )
 
     # pickle and save the tuning_results
-    with open(f"results/{configuration_hash}/tuning_results.pkl", "wb") as f:
+    with open(f"{args.results_folder}/{configuration_hash}/tuning_results.pkl", "wb") as f:
         print(
-            f"Saving tuning results to file: results/{configuration_hash}/tuning_results.pkl"
+            f"Saving tuning results to file: {args.results_folder}/{configuration_hash}/tuning_results.pkl"
         )
         pickle.dump(tuning_results, f)
 
     # save the pareto
     print(f"Plotting the pareto front for configuration: {configuration_hash}")
     pareto = _pareto_frontier_scatter_2d_plotly(ax_client.experiment)
-    pareto.write_image(f"results/{configuration_hash}/pareto.png")
-    pareto.write_html(f"results/{configuration_hash}/pareto.html")
+    pareto.write_image(f"{args.results_folder}/{configuration_hash}/pareto.png")
+    pareto.write_html(f"{args.results_folder}/{configuration_hash}/pareto.html")
+
+    # print the hypervolume
+    print(f"Hyper-volume: {ax_client.get_hypervolume()}")
+
+    # print the number of pareto-optimal solutions
+    print(f"{len(ax_client.get_pareto_optimal_parameters())} pareto-optimal points: {ax_client.get_pareto_optimal_parameters()}")
 
     # save cv surrogate model
     # print(f"Saving CV surrogate model for configuration: {configuration_hash}")
     # cv = cross_validate(model=ax_client.generation_strategy.model)
     # compute_diagnostics(cv)
     # cv_plot = interact_cross_validation_plotly(cv)
-    # cv_plot.write_image(f"results/{configuration_hash}/cv.png")
-    # cv_plot.write_html(f"results/{configuration_hash}/cv.html")
+    # cv_plot.write_image(f"{args.results_folder}/{configuration_hash}/cv.png")
+    # cv_plot.write_html(f"{args.results_folder}/{configuration_hash}/cv.html")
 
     # save contour plot
     # print(f"Saving contour plot for configuration: {configuration_hash}")
@@ -514,8 +540,8 @@ if __name__ == "__main__":
     #         model=ax_client.generation_strategy.model, metric_name=objective
     #     )
     #     countour_plot.write_image(
-    #         f"results/{configuration_hash}/contour_{objective}.png"
+    #         f"{args.results_folder}/{configuration_hash}/contour_{objective}.png"
     #     )
     #     countour_plot.write_html(
-    #         f"results/{configuration_hash}/contour_{objective}.html"
+    #         f"{args.results_folder}/{configuration_hash}/contour_{objective}.html"
     #     )

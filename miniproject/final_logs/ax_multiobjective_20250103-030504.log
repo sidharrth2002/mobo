@@ -1,0 +1,8 @@
+Is CUDA available: True
+Number of GPUs: 5
+Running optimisation with args: Namespace(num_samples=25, max_num_epochs=8, num_gpus=None, objective_1='ptl/val_accuracy', objective_1_type='max', objective_1_threshold=0.9, objective_2='ptl/val_loss', objective_2_type='min', objective_2_threshold=0.5, objective_3='ptl/model_params', objective_3_type='min', objective_3_threshold=100000.0, max_concurrent=10, use_scheduler=True, scheduler_strategy='eps_net', scheduler_max_t=8, scheduler_grace_period=2, scheduler_reduction_factor=6, accelerator='gpu', use_scaling_config=True, data_path='/home/sn666/large-scale-data-processing/miniproject/data', remark='8e/moasha-epsnet/maxt8gr2red6/maxaccminlossminparam', results_folder='final_results')
+Using 3 Objectives: {'ptl/val_accuracy': ObjectiveProperties(minimize=False, threshold=0.9), 'ptl/val_loss': ObjectiveProperties(minimize=True, threshold=0.5), 'ptl/model_params': ObjectiveProperties(minimize=True, threshold=100000.0)}
+Modes: ['max', 'min', 'min']
+Metrics: ['ptl/val_accuracy', 'ptl/val_loss', 'ptl/model_params']
+Limiting concurrent trials to 10
+Run config: RunConfig(storage_path='/home/sn666/ray_results', checkpoint_config=CheckpointConfig(num_to_keep=2, checkpoint_score_attribute='ptl/val_accuracy'), verbose=1)

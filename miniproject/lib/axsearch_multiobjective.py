@@ -64,13 +64,13 @@ class AxSearchMultiObjective(Searcher):
             (list of two values, lower bound first), "values" for choice
             parameters (list of values), and "value" for fixed parameters
             (single value).
-        metric: Name of the metric used as objective in this
+        metric: Names of the metrics used as objective in this
             experiment. This metric must be present in `raw_data` argument
             to `log_data`. This metric must also be present in the dict
             reported/returned by the Trainable. If None but a mode was passed,
             the `ray.tune.result.DEFAULT_METRIC` will be used per default.
-        mode: One of {min, max}. Determines whether objective is
-            minimizing or maximizing the metric attribute. Defaults to "max".
+        mode: One of {min, max} for each metric. Determines whether objective is
+            minimizing or maximizing each metric attribute. Defaults to "max".
         points_to_evaluate: Initial parameter suggestions to be run
             first. This is for when you already have some good parameters
             you want to run first to help the algorithm make better suggestions
@@ -85,60 +85,6 @@ class AxSearchMultiObjective(Searcher):
             `parameter_constraints`, `outcome_constraints`.
         **ax_kwargs: Passed to AxClient instance. Ignored if `AxClient` is not
             None.
-
-    Tune automatically converts search spaces to Ax's format:
-
-    .. code-block:: python
-
-        from ray import tune
-        from ray.tune.search.ax import AxSearch
-
-        config = {
-            "x1": tune.uniform(0.0, 1.0),
-            "x2": tune.uniform(0.0, 1.0)
-        }
-
-        def easy_objective(config):
-            for i in range(100):
-                intermediate_result = config["x1"] + config["x2"] * i
-                tune.report(score=intermediate_result)
-
-        ax_search = AxSearch(metric="score")
-        tuner = tune.Tuner(
-            easy_objective,
-            tune_config=tune.TuneConfig(
-                search_alg=ax_search,
-            ),
-            param_space=config,
-        )
-        tuner.fit()
-
-    If you would like to pass the search space manually, the code would
-    look like this:
-
-    .. code-block:: python
-
-        from ray import tune
-        from ray.tune.search.ax import AxSearch
-
-        parameters = [
-            {"name": "x1", "type": "range", "bounds": [0.0, 1.0]},
-            {"name": "x2", "type": "range", "bounds": [0.0, 1.0]},
-        ]
-
-        def easy_objective(config):
-            for i in range(100):
-                intermediate_result = config["x1"] + config["x2"] * i
-                tune.report(score=intermediate_result)
-
-        ax_search = AxSearch(space=parameters, metric="score")
-        tuner = tune.Tuner(
-            easy_objective,
-            tune_config=tune.TuneConfig(
-                search_alg=ax_search,
-            ),
-        )
-        tuner.fit()
 
     """
 
