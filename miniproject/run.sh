@@ -9,47 +9,47 @@ generate_log_file() {
 }
 
 # RUNS WITHOUT SCHEDULER
-# # max accuracy and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark maxaccminparam --use_scaling_config| tee -a "$LOG_FILE"
+# max accuracy and min params
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark maxaccminparam --use_scaling_config| tee -a "$LOG_FILE"
 
-# # max accuracy and min loss
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark micaccminloss --use_scaling_config | tee -a "$LOG_FILE"
+# max accuracy and min loss
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark micaccminloss --use_scaling_config | tee -a "$LOG_FILE"
 
-# # min loss and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_loss --objective_1_type min --objective_1_threshold 0.5 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark minlossminparam --use_scaling_config | tee -a "$LOG_FILE"
+# min loss and min params
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_loss --objective_1_type min --objective_1_threshold 0.5 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark minlossminparam --use_scaling_config | tee -a "$LOG_FILE"
 
-# # max accuracy, min loss and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --objective_3 ptl/model_params --objective_3_threshold 100000 --objective_3_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark maxaccminlossminparam --use_scaling_config | tee -a "$LOG_FILE"
+# max accuracy, min loss and min params
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --objective_3 ptl/model_params --objective_3_threshold 100000 --objective_3_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --remark maxaccminlossminparam --use_scaling_config | tee -a "$LOG_FILE"
 
 # RUNS WITH SCHEDULER
 
 # max accuracy and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminparam --use_scaling_config | tee -a "$LOG_FILE"
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminparam --use_scaling_config | tee -a "$LOG_FILE"
 
-# # max accuracy and min loss
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminloss --use_scaling_config | tee -a "$LOG_FILE"
+# max accuracy and min loss
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminloss --use_scaling_config | tee -a "$LOG_FILE"
 
-# # min loss and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_loss --objective_1_type min --objective_1_threshold 0.5 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/minlossminparam --use_scaling_config | tee -a "$LOG_FILE"
+# min loss and min params
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_loss --objective_1_type min --objective_1_threshold 0.5 --objective_2 ptl/model_params --objective_2_threshold 100000 --objective_2_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/minlossminparam --use_scaling_config | tee -a "$LOG_FILE"
 
-# # max accuracy, min loss and min params
-# LOG_FILE=$(generate_log_file "ax_multiobjective.py")
-# echo "Logging to $LOG_FILE"
-# CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --objective_3 ptl/model_params --objective_3_threshold 100000 --objective_3_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminlossminparam --use_scaling_config | tee -a "$LOG_FILE"
+# max accuracy, min loss and min params
+LOG_FILE=$(generate_log_file "ax_multiobjective.py")
+echo "Logging to $LOG_FILE"
+CUDA_VISIBLE_DEVICES=2,4,5,6,7 python3 ax_multiobjective.py --num_samples 25 --max_num_epochs 4 --objective_1 ptl/val_accuracy --objective_1_type max --objective_1_threshold 0.90 --objective_2 ptl/val_loss --objective_2_threshold 0.5 --objective_2_type min --objective_3 ptl/model_params --objective_3_threshold 100000 --objective_3_type min --max_concurrent 10 --accelerator gpu --data_path /home/sn666/large-scale-data-processing/miniproject/data --use_scheduler --remark moasha/maxaccminlossminparam --use_scaling_config | tee -a "$LOG_FILE"
 
 
 # max_t = 3

@@ -26,7 +26,7 @@ from ray.train import RunConfig, ScalingConfig, CheckpointConfig
 from ray.tune import TuneConfig, Tuner
 from lib.ax_torchtrainer import TorchTrainerMultiObjective
 # from lib.mobo_asha_4 import MultiObjectiveAsyncHyperBandScheduler
-from lib.mobo_asha_6 import MultiObjectiveAsyncHyperBandScheduler
+from lib.mobo_asha_naive import MultiObjectiveAsyncHyperBandScheduler
 # from lib.mobo_asha import MultiObjectiveAsyncHyperBandScheduler
 
 import pickle

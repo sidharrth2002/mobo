@@ -1,0 +1,1 @@
+This folder contains past versions of the MO-ASHA scheduler that did not work for various reasons. 
