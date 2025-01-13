@@ -18,13 +18,19 @@ This project details, implements Multi-Objective Bayesian Optimisation using Ax 
 
 ## How to Run
 
+Install the required packages using your favourite environment manager:
+
+```
+pip install -r requirements.txt
+```
+
 Runs are instantiated through the shell script `final_runs.sh` that in turn calls `ax_multiobjective.py`. 
 
 ```bash
 sh final_runs.sh
 ```
 
-Running a single multi-objective experiment for inversely competing accuracy and model size objectives:
+Alternatively, you can run a single multi-objective experiment for inversely competing accuracy and model size objectives:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3,6 python3 ax_multiobjective.py --num_samples 25 
